@@ -407,6 +407,8 @@
 
   /* Dual-language section marker (EN · 中文 + line) */
   .section-marker--dual{display:flex;align-items:center;gap:.75rem}
+  .marker-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:.4rem}
+  .marker-grid .section-marker{margin:0}
   .section-marker--dual .lbl{
     display:inline-flex;align-items:baseline;gap:.55rem;
   }
@@ -1543,13 +1545,23 @@
 
         <!-- EDUCATION & LANGUAGE · 教育與語言 -->
         <div class="about-section">
-          <div class="section-marker section-marker--dual">
-            <span class="lbl">
-              <span class="lbl-en">Education &amp; Language</span>
-              <span class="lbl-dot">·</span>
-              <span class="lbl-cn">教育與語言</span>
-            </span>
-            <span class="line"></span>
+          <div class="marker-grid">
+            <div class="section-marker section-marker--dual">
+              <span class="lbl">
+                <span class="lbl-en">Education</span>
+                <span class="lbl-dot">·</span>
+                <span class="lbl-cn">教育</span>
+              </span>
+              <span class="line"></span>
+            </div>
+            <div class="section-marker section-marker--dual">
+              <span class="lbl">
+                <span class="lbl-en">Language</span>
+                <span class="lbl-dot">·</span>
+                <span class="lbl-cn">語言</span>
+              </span>
+              <span class="line"></span>
+            </div>
           </div>
 
           <div class="card-grid">
@@ -1583,11 +1595,9 @@
                 </div>
                 <div class="lang-item">
                   <span class="lang-name">英文</span>
-                  <span class="lang-level">Professional</span>
+                  <span class="lang-level">IELTS 7.0</span>
                 </div>
               </div>
-              <div class="ic-divider"></div>
-              <div class="lang-cert">IELTS 7.0</div>
             </div>
           </div>
         </div>
@@ -1666,7 +1676,7 @@
           <div class="skill-row">
             <div class="skill-row-head">
               <span class="skill-name">API</span>
-              <span class="skill-desc">Read</span>
+              <span class="skill-desc">文件閱讀與呼叫</span>
             </div>
             <div class="skill-bar"><span class="fill" style="width:40%"></span></div>
           </div>
