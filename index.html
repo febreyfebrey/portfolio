@@ -686,12 +686,28 @@
     text-align:right;
   }
   .skill-bar{
-    height:4px;background:var(--hair);
+    height:5px;background:var(--hair);
     position:relative;
+    overflow:hidden;
+  }
+  /* 用上層遮罩畫格子分隔線(透白色細線),讓底層填色被切成 5 格 */
+  .skill-bar::after{
+    content:"";
+    position:absolute;inset:0;
+    background-image:repeating-linear-gradient(
+      to right,
+      transparent 0,
+      transparent calc(20% - 2px),
+      var(--paper) calc(20% - 2px),
+      var(--paper) 20%
+    );
+    pointer-events:none;
+    z-index:2;
   }
   .skill-bar .fill{
     height:100%;background:var(--ink);
     position:absolute;left:0;top:0;
+    z-index:1;
   }
 
   /* ===== Slide 05 — EXPERIENCE ===== */
@@ -1221,6 +1237,21 @@
     .stage{width:calc(100vw - 48px);height:auto}
   }
 
+  /* LinkedIn link with inline SVG icon */
+  .li-link{
+    color:inherit;text-decoration:none;
+    display:inline-flex;align-items:center;gap:.4rem;
+    transition:color .15s ease;
+  }
+  .li-link:hover{color:var(--blue)}
+  .li-link svg{
+    width:1em;height:1em;
+    flex-shrink:0;
+    display:block;
+  }
+  .li-link:hover svg{fill:var(--blue)}
+  .li-link svg{fill:currentColor;transition:fill .15s ease}
+
   /* ===== Password Gate ===== */
   #gate{
     position:fixed;inset:0;
@@ -1351,11 +1382,11 @@
       <div class="cover-footer">
         <div class="cover-name-block">
           <div class="cover-name">Tai-Ting Huang · Febrey<span class="cjk">黃岱婷</span></div>
-          <div class="cover-role">資深產品經理 / R&amp;D Product Head · 10 年產品 · MarTech → EdTech → AI</div>
+          <div class="cover-role">資深產品經理 / R&amp;D Product Head · 10 年數位產品經驗 · MarTech → EdTech → AI</div>
           <div class="cover-contact">
             <span>febreyhuang@gmail.com</span>
             <span>Taipei, Taiwan</span>
-            <span>in/febrey-huang</span>
+            <a href="https://www.linkedin.com/in/febrey-huang" target="_blank" rel="noopener" class="li-link"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.66H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg><span>febrey-huang</span></a>
           </div>
         </div>
         <div class="brand-mark">
@@ -1459,14 +1490,14 @@
             <div class="cc-phases">
               <div class="cc-phase">
                 <div class="cp-period">2016 — 2018</div>
-                <div class="cp-role">PM, IC</div>
-                <div class="cp-team">獨立貢獻者</div>
+                <div class="cp-role">商業分析師</div>
+                <div class="cp-team">IC Role</div>
                 <div class="cp-scope">行銷及名單管理系統</div>
               </div>
               <div class="cc-phase">
                 <div class="cp-period">2018 — 2021</div>
-                <div class="cp-role">Marketing Systems Mgr</div>
-                <div class="cp-team">管理 7 人</div>
+                <div class="cp-role">Marketing Systems Manager</div>
+                <div class="cp-team">管理 6 人</div>
                 <div class="cp-scope">官網與學習中心 · 站點整併與 RWD 統一</div>
               </div>
               <div class="cc-phase cc-phase--current">
@@ -1530,7 +1561,7 @@
                     <div class="ic-title">Lancaster University, UK</div>
                     <div class="ic-meta">2013</div>
                   </div>
-                  <div class="ic-body">MSc, E-business &amp; Innovation</div>
+                  <div class="ic-body">E-business &amp; Innovation 碩士</div>
                 </div>
                 <div class="ic-divider"></div>
                 <div class="ic-stack-row">
@@ -1610,14 +1641,14 @@
           <div class="skill-row">
             <div class="skill-row-head">
               <span class="skill-name">Claude Cowork</span>
-              <span class="skill-desc">SDET 自動化工作流</span>
+              <span class="skill-desc">自動化工作流</span>
             </div>
             <div class="skill-bar"><span class="fill" style="width:80%"></span></div>
           </div>
           <div class="skill-row">
             <div class="skill-row-head">
               <span class="skill-name">Claude Code</span>
-              <span class="skill-desc">Figma MCP + Atomic</span>
+              <span class="skill-desc">MCP + Agent / Skill 建置</span>
             </div>
             <div class="skill-bar"><span class="fill" style="width:60%"></span></div>
           </div>
@@ -2118,7 +2149,7 @@
           <div class="v-num">04 — Adaptive</div>
           <div class="v-body">
             <div class="v-en">Stay Adaptive</div>
-            <div class="v-zh">頭腦靈活</div>
+            <div class="v-zh">靈活應變</div>
             <div class="v-desc">沒有最佳解,只有最適解;鎖定目標,選最合用的方案。</div>
           </div>
         </div>
@@ -2146,7 +2177,7 @@
           <div class="thanks-contact">
             <span>febreyhuang@gmail.com</span>
             <span>Taipei, Taiwan</span>
-            <span>in/febrey-huang</span>
+            <a href="https://www.linkedin.com/in/febrey-huang" target="_blank" rel="noopener" class="li-link"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.66H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg><span>febrey-huang</span></a>
           </div>
         </div>
         <div class="brand-mark">
