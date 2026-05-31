@@ -1332,9 +1332,32 @@
   .deck-locked .deck,
   .deck-locked .controls,
   .deck-locked .progress{visibility:hidden}
+
+  /* ===== Language toggle (中 / EN) ===== */
+  .lang-toggle{position:fixed;top:16px;right:18px;z-index:60;display:inline-flex;align-items:center;gap:.35rem;
+    font-family:var(--font-mono, monospace);font-size:.72rem;letter-spacing:.04em;
+    padding:.34rem .62rem;border:1px solid rgba(4,25,84,.18);border-radius:999px;
+    background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+    color:var(--ink,#041954);cursor:pointer;transition:background .15s ease,border-color .15s ease}
+  .lang-toggle:hover{border-color:rgba(4,25,84,.42)}
+  .lang-toggle .lt{opacity:.42;font-weight:600;transition:opacity .15s ease}
+  .lang-toggle .lt.on{opacity:1}
+  .lang-toggle .lt-sep{opacity:.3}
+  .deck-locked .lang-toggle{display:none}
+  body.lang-en .zh,
+  body.lang-en .toc-zh,
+  body.lang-en .v-zh,
+  body.lang-en .cover-zh,
+  body.lang-en .thanks-zh,
+  body.lang-en .gate-zh,
+  body.lang-en .lbl-cn,
+  body.lang-en .lbl-dot,
+  body.lang-en .sc-en,
+  body.lang-en .cjk{display:none !important}
 </style>
 </head>
 <body class="deck-locked">
+<button id="lang-toggle" class="lang-toggle" type="button" aria-label="Switch language"><span class="lt lt-zh on">中</span><span class="lt-sep">/</span><span class="lt lt-en">EN</span></button>
 
 <!-- ===== Password Gate ===== -->
 <div id="gate">
@@ -1369,8 +1392,8 @@
     <!-- ===== SLIDE 01 — COVER ===== -->
     <section class="slide cover active" data-slide="01">
       <div class="top-bar">
-        <div class="cover-meta">PORTFOLIO<span class="sep">/</span>產品經理 PRODUCT MANAGER</div>
-        <div class="cover-meta">2026</div>
+        <div class="cover-meta" data-en="PORTFOLIO&lt;span class=&quot;sep&quot;&gt;/&lt;/span&gt;PRODUCT MANAGER">PORTFOLIO<span class="sep">/</span>產品經理 PRODUCT MANAGER</div>
+        <div class="cover-meta" data-en="2026">2026</div>
       </div>
 
       <div class="cover-stack">
@@ -1384,7 +1407,7 @@
       <div class="cover-footer">
         <div class="cover-name-block">
           <div class="cover-name">Tai-Ting Huang · Febrey<span class="cjk">黃岱婷</span></div>
-          <div class="cover-role">資深產品經理 / R&amp;D Product Head · 10 年數位產品經驗 · MarTech → EdTech → AI</div>
+          <div class="cover-role" data-en="Senior Product Manager / R&amp;D Product Head · 10 yrs in digital products · MarTech → EdTech → AI">資深產品經理 / R&amp;D Product Head · 10 年數位產品經驗 · MarTech → EdTech → AI</div>
           <div class="cover-contact">
             <span>febreyhuang@gmail.com</span>
             <span>Taipei, Taiwan</span>
@@ -1401,7 +1424,7 @@
     <section class="slide" data-slide="02">
       <div class="top-bar">
         <div class="top-bar-left">
-          <div class="label">Contents</div>
+          <div class="label" data-en="Contents">Contents</div>
           <div class="top-rule"></div>
         </div>
         <div class="pagenum">02 / 11</div>
@@ -1460,7 +1483,7 @@
     <section class="slide" data-slide="03">
       <div class="top-bar">
         <div class="top-bar-left">
-          <div class="label">關於我 / About</div>
+          <div class="label" data-en="About">關於我 / About</div>
           <div class="top-rule"></div>
         </div>
         <div class="pagenum">03 / 11</div>
@@ -1487,26 +1510,26 @@
           <div class="current-card">
             <div class="cc-header">
               <div class="cc-co">TutorABC<span class="cjk">麥奇數位</span></div>
-              <div class="cc-period">2016.06 — 至今</div>
+              <div class="cc-period" data-en="2016.06 — Present">2016.06 — 至今</div>
             </div>
             <div class="cc-phases">
               <div class="cc-phase">
-                <div class="cp-period">2016 — 2018</div>
-                <div class="cp-role">商業分析師</div>
-                <div class="cp-team">IC Role</div>
-                <div class="cp-scope">行銷及名單管理系統</div>
+                <div class="cp-period" data-en="2016 — 2018">2016 — 2018</div>
+                <div class="cp-role" data-en="Business Analyst">商業分析師</div>
+                <div class="cp-team" data-en="IC Role">IC Role</div>
+                <div class="cp-scope" data-en="Marketing &amp; lead-management systems">行銷及名單管理系統</div>
               </div>
               <div class="cc-phase">
-                <div class="cp-period">2018 — 2021</div>
-                <div class="cp-role">Marketing Systems Manager</div>
-                <div class="cp-team">管理 6 人</div>
-                <div class="cp-scope">官網與學習中心 · 站點整併與 RWD 統一</div>
+                <div class="cp-period" data-en="2018 — 2021">2018 — 2021</div>
+                <div class="cp-role" data-en="Marketing Systems Manager">Marketing Systems Manager</div>
+                <div class="cp-team" data-en="Team of 6">管理 6 人</div>
+                <div class="cp-scope" data-en="Website &amp; Learning Center · consolidation + unified RWD">官網與學習中心 · 站點整併與 RWD 統一</div>
               </div>
               <div class="cc-phase cc-phase--current">
-                <div class="cp-period">2022 — 至今</div>
-                <div class="cp-role">R&amp;D Product Head</div>
-                <div class="cp-team">管理 9 人 · 影響 60+ R&amp;D</div>
-                <div class="cp-scope">B2B 平台 · 直播電商 · AI 產品線</div>
+                <div class="cp-period" data-en="2022 — Present">2022 — 至今</div>
+                <div class="cp-role" data-en="R&amp;D Product Head">R&amp;D Product Head</div>
+                <div class="cp-team" data-en="Team of 9 · 60+ R&amp;D influence">管理 9 人 · 影響 60+ R&amp;D</div>
+                <div class="cp-scope" data-en="B2B platform · live commerce · AI product line">B2B 平台 · 直播電商 · AI 產品線</div>
               </div>
             </div>
           </div>
@@ -1526,19 +1549,19 @@
           <div class="card-grid">
             <div class="info-card">
               <div class="ic-header">
-                <div class="ic-title">CyberPower Systems</div>
+                <div class="ic-title" data-en="CyberPower Systems">CyberPower Systems</div>
                 <div class="ic-meta">2014 — 2016</div>
               </div>
-              <div class="ic-sub">資深專案專員</div>
-              <div class="ic-body">全球官網 / 夥伴平台 / 售後服務體系建構</div>
+              <div class="ic-sub" data-en="Senior Project Specialist">資深專案專員</div>
+              <div class="ic-body" data-en="Global site / partner platform / after-sales service systems">全球官網 / 夥伴平台 / 售後服務體系建構</div>
             </div>
             <div class="info-card">
               <div class="ic-header">
-                <div class="ic-title">Walsin Lihwa<span class="cjk">華新麗華(南京)</span></div>
+                <div class="ic-title" data-en="Walsin Lihwa">Walsin Lihwa<span class="cjk">華新麗華(南京)</span></div>
                 <div class="ic-meta">2010 — 2011</div>
               </div>
-              <div class="ic-sub">特別專案專員</div>
-              <div class="ic-body">兩岸 B2B 商貿媒合 / 自有品牌進出口</div>
+              <div class="ic-sub" data-en="Special Project Specialist">特別專案專員</div>
+              <div class="ic-body" data-en="Cross-strait B2B trade matching / own-brand import &amp; export">兩岸 B2B 商貿媒合 / 自有品牌進出口</div>
             </div>
           </div>
         </div>
@@ -1570,18 +1593,18 @@
               <div class="ic-stack">
                 <div class="ic-stack-row">
                   <div class="ic-header">
-                    <div class="ic-title">Lancaster University, UK</div>
+                    <div class="ic-title" data-en="Lancaster University, UK">Lancaster University, UK</div>
                     <div class="ic-meta">2013</div>
                   </div>
-                  <div class="ic-body">E-business &amp; Innovation 碩士</div>
+                  <div class="ic-body" data-en="MSc, E-business &amp; Innovation">E-business &amp; Innovation 碩士</div>
                 </div>
                 <div class="ic-divider"></div>
                 <div class="ic-stack-row">
                   <div class="ic-header">
-                    <div class="ic-title">東吳大學</div>
+                    <div class="ic-title" data-en="Soochow University">東吳大學</div>
                     <div class="ic-meta">2010</div>
                   </div>
-                  <div class="ic-body">國際經營與貿易學 學士</div>
+                  <div class="ic-body" data-en="BBA, International Business &amp; Trade">國際經營與貿易學 學士</div>
                 </div>
               </div>
             </div>
@@ -1590,12 +1613,12 @@
             <div class="info-card">
               <div class="lang-list">
                 <div class="lang-item">
-                  <span class="lang-name">中文</span>
-                  <span class="lang-level">母語</span>
+                  <span class="lang-name" data-en="Chinese">中文</span>
+                  <span class="lang-level" data-en="Native">母語</span>
                 </div>
                 <div class="lang-item">
-                  <span class="lang-name">英文</span>
-                  <span class="lang-level">IELTS 7.0</span>
+                  <span class="lang-name" data-en="English">英文</span>
+                  <span class="lang-level" data-en="IELTS 7.0">IELTS 7.0</span>
                 </div>
               </div>
             </div>
@@ -1609,7 +1632,7 @@
     <section class="slide" data-slide="04">
       <div class="top-bar">
         <div class="top-bar-left">
-          <div class="label">工具熟練度 / Tools</div>
+          <div class="label" data-en="Tools">工具熟練度 / Tools</div>
           <div class="top-rule"></div>
         </div>
         <div class="pagenum">04 / 11</div>
@@ -1626,14 +1649,14 @@
           <div class="skill-row">
             <div class="skill-row-head">
               <span class="skill-name">Jira</span>
-              <span class="skill-desc">Admin 級</span>
+              <span class="skill-desc" data-en="Admin level">Admin 級</span>
             </div>
             <div class="skill-bar"><span class="fill" style="width:100%"></span></div>
           </div>
           <div class="skill-row">
             <div class="skill-row-head">
               <span class="skill-name">Figma</span>
-              <span class="skill-desc">UI with Design System</span>
+              <span class="skill-desc" data-en="UI with Design System">UI with Design System</span>
             </div>
             <div class="skill-bar"><span class="fill" style="width:80%"></span></div>
           </div>
@@ -1644,21 +1667,21 @@
           <div class="skill-row">
             <div class="skill-row-head">
               <span class="skill-name">Claude Chat</span>
-              <span class="skill-desc">深度使用 + 工作流設計</span>
+              <span class="skill-desc" data-en="Power use + workflow design">深度使用 + 工作流設計</span>
             </div>
             <div class="skill-bar"><span class="fill" style="width:100%"></span></div>
           </div>
           <div class="skill-row">
             <div class="skill-row-head">
               <span class="skill-name">Claude Cowork</span>
-              <span class="skill-desc">自動化工作流</span>
+              <span class="skill-desc" data-en="Automation workflows">自動化工作流</span>
             </div>
             <div class="skill-bar"><span class="fill" style="width:80%"></span></div>
           </div>
           <div class="skill-row">
             <div class="skill-row-head">
               <span class="skill-name">Claude Code</span>
-              <span class="skill-desc">MCP + Agent / Skill 建置</span>
+              <span class="skill-desc" data-en="MCP + Agent / Skill building">MCP + Agent / Skill 建置</span>
             </div>
             <div class="skill-bar"><span class="fill" style="width:60%"></span></div>
           </div>
@@ -1669,14 +1692,14 @@
           <div class="skill-row">
             <div class="skill-row-head">
               <span class="skill-name">MSSQL / MySQL</span>
-              <span class="skill-desc">Schema + AI 輔助查詢</span>
+              <span class="skill-desc" data-en="Schema + AI-assisted queries">Schema + AI 輔助查詢</span>
             </div>
             <div class="skill-bar"><span class="fill" style="width:60%"></span></div>
           </div>
           <div class="skill-row">
             <div class="skill-row-head">
               <span class="skill-name">API</span>
-              <span class="skill-desc">文件閱讀與呼叫</span>
+              <span class="skill-desc" data-en="Docs reading &amp; API calls">文件閱讀與呼叫</span>
             </div>
             <div class="skill-bar"><span class="fill" style="width:40%"></span></div>
           </div>
@@ -1687,14 +1710,14 @@
           <div class="skill-row">
             <div class="skill-row-head">
               <span class="skill-name">Google Tag Manager</span>
-              <span class="skill-desc">FB / Yahoo / Google Ads 完整實作</span>
+              <span class="skill-desc" data-en="Full FB / Yahoo / Google Ads setup">FB / Yahoo / Google Ads 完整實作</span>
             </div>
             <div class="skill-bar"><span class="fill" style="width:100%"></span></div>
           </div>
           <div class="skill-row">
             <div class="skill-row-head">
               <span class="skill-name">Canva</span>
-              <span class="skill-desc">活動影片與簡報</span>
+              <span class="skill-desc" data-en="Campaign videos &amp; decks">活動影片與簡報</span>
             </div>
             <div class="skill-bar"><span class="fill" style="width:80%"></span></div>
           </div>
@@ -1706,19 +1729,19 @@
     <section class="slide proj-1" data-slide="05">
       <div class="top-bar">
         <div class="top-bar-left">
-          <div class="label">專案 / Project 01</div>
+          <div class="label" data-en="Project 01">專案 / Project 01</div>
           <div class="top-rule"></div>
         </div>
         <div style="display:flex;flex-direction:column;align-items:flex-end;gap:.6rem">
           <div class="scope-scale">
-            <span class="lbl">影響範圍</span>
-            <span class="stage-item on">流程</span>
+            <span class="lbl" data-en="Scope of impact">影響範圍</span>
+            <span class="stage-item on" data-en="Process">流程</span>
             <span class="stage-arrow">›</span>
-            <span class="stage-item">市場</span>
+            <span class="stage-item" data-en="Market">市場</span>
             <span class="stage-arrow">›</span>
-            <span class="stage-item">產品</span>
+            <span class="stage-item" data-en="Product">產品</span>
             <span class="stage-arrow">›</span>
-            <span class="stage-item">組織</span>
+            <span class="stage-item" data-en="Org">組織</span>
           </div>
           <div class="pagenum">05 / 11</div>
         </div>
@@ -1729,54 +1752,54 @@
           <div class="zh">行銷技術平台化</div>
           <div class="en">MarTech Platformization</div>
         </div>
-        <div class="proj-period">2016 — 2021</div>
+        <div class="proj-period" data-en="2016 — 2021">2016 — 2021</div>
       </div>
 
       <div class="proj-section">
         <div class="section-marker section-marker--dual accent-blue"><span class="lbl"><span class="lbl-en">Context</span><span class="lbl-dot">·</span><span class="lbl-cn">背景</span></span><span class="line"></span></div>
-        <p class="proj-context">行銷系統由各部門各自開發,資料破碎、重工嚴重、難以規模化。</p>
+        <p class="proj-context" data-en="Marketing systems were built ad hoc by each team — fragmented data, heavy rework, hard to scale.">行銷系統由各部門各自開發,資料破碎、重工嚴重、難以規模化。</p>
       </div>
 
       <div class="proj-section">
         <div class="section-marker section-marker--dual accent-blue"><span class="lbl"><span class="lbl-en">Scope</span><span class="lbl-dot">·</span><span class="lbl-cn">範疇</span></span><span class="line"></span></div>
         <div class="scope-cards-3">
           <div class="scope-card">
-            <div class="sc-title">名單管理微服務</div>
+            <div class="sc-title" data-en="Lead Management Service">名單管理微服務</div>
             <div class="sc-en">Lead Service</div>
             <ul>
-              <li>統一 API 規範</li>
-              <li>多維分派(通路 / 客戶屬性)</li>
-              <li>取代各自寫表</li>
+              <li data-en="Unified API spec">統一 API 規範</li>
+              <li data-en="Multi-dimensional routing (channel / attributes)">多維分派(通路 / 客戶屬性)</li>
+              <li data-en="Replaced ad-hoc tables">取代各自寫表</li>
             </ul>
-            <div class="sc-metric">整合 <span class="hl">10+ 系統</span></div>
+            <div class="sc-metric" data-en="Integrated &lt;span class=&quot;hl&quot;&gt;10+ systems&lt;/span&gt;">整合 <span class="hl">10+ 系統</span></div>
           </div>
           <div class="scope-card">
-            <div class="sc-title">活動頁管理平台</div>
+            <div class="sc-title" data-en="Campaign CMS">活動頁管理平台</div>
             <div class="sc-en">Campaign CMS</div>
             <ul>
-              <li>模組化 CMS</li>
-              <li>SEO 規範內建</li>
-              <li>常用模組複用</li>
+              <li data-en="Modular CMS">模組化 CMS</li>
+              <li data-en="Built-in SEO standards">SEO 規範內建</li>
+              <li data-en="Reusable common modules">常用模組複用</li>
             </ul>
-            <div class="sc-metric">5d → 1d &nbsp; <span class="hl">−80%</span></div>
+            <div class="sc-metric" data-en="5d → 1d &amp;nbsp; &lt;span class=&quot;hl&quot;&gt;−80%&lt;/span&gt;">5d → 1d &nbsp; <span class="hl">−80%</span></div>
           </div>
           <div class="scope-card">
-            <div class="sc-title">GTM 標籤治理</div>
+            <div class="sc-title" data-en="GTM Tag Governance">GTM 標籤治理</div>
             <div class="sc-en">Tag Governance</div>
             <ul>
-              <li>第三方標籤治理</li>
-              <li>部署責任釐清</li>
-              <li>降低合規風險</li>
+              <li data-en="Third-party tag governance">第三方標籤治理</li>
+              <li data-en="Clear deployment ownership">部署責任釐清</li>
+              <li data-en="Reduced compliance risk">降低合規風險</li>
             </ul>
-            <div class="sc-metric">10d → 3d &nbsp; <span class="hl">−70%</span></div>
+            <div class="sc-metric" data-en="10d → 3d &amp;nbsp; &lt;span class=&quot;hl&quot;&gt;−70%&lt;/span&gt;">10d → 3d &nbsp; <span class="hl">−70%</span></div>
           </div>
         </div>
       </div>
 
       <div class="outcome">
         <div class="section-marker section-marker--dual accent-blue"><span class="lbl"><span class="lbl-en">Outcome</span><span class="lbl-dot">·</span><span class="lbl-cn">成果</span></span><span class="line"></span></div>
-        <div class="outcome-head"><em>改變工作模式</em> — 從「等工程排期」變成「自助上線」</div>
-        <div class="outcome-metrics">
+        <div class="outcome-head" data-en="&lt;em&gt;Changed how we work&lt;/em&gt; — from “waiting on eng” to “self-serve launch”"><em>改變工作模式</em> — 從「等工程排期」變成「自助上線」</div>
+        <div class="outcome-metrics" data-en="&lt;span&gt;Dev time &lt;span class=&quot;hl&quot;&gt;−70~80%&lt;/span&gt;&lt;/span&gt;&lt;span&gt;3 core systems governed&lt;/span&gt;&lt;span&gt;Standardized cross-team collaboration&lt;/span&gt;">
           <span>開發時程 <span class="hl">−70~80%</span></span>
           <span>治理 3 大系統</span>
           <span>跨部門協作標準化</span>
@@ -1788,19 +1811,19 @@
     <section class="slide proj-2" data-slide="06">
       <div class="top-bar">
         <div class="top-bar-left">
-          <div class="label">專案 / Project 02</div>
+          <div class="label" data-en="Project 02">專案 / Project 02</div>
           <div class="top-rule"></div>
         </div>
         <div style="display:flex;flex-direction:column;align-items:flex-end;gap:.6rem">
           <div class="scope-scale">
-            <span class="lbl">影響範圍</span>
-            <span class="stage-item">流程</span>
+            <span class="lbl" data-en="Scope of impact">影響範圍</span>
+            <span class="stage-item" data-en="Process">流程</span>
             <span class="stage-arrow">›</span>
-            <span class="stage-item on">市場</span>
+            <span class="stage-item on" data-en="Market">市場</span>
             <span class="stage-arrow">›</span>
-            <span class="stage-item">產品</span>
+            <span class="stage-item" data-en="Product">產品</span>
             <span class="stage-arrow">›</span>
-            <span class="stage-item">組織</span>
+            <span class="stage-item" data-en="Org">組織</span>
           </div>
           <div class="pagenum">06 / 11</div>
         </div>
@@ -1811,54 +1834,54 @@
           <div class="zh">官網與學習中心全球化</div>
           <div class="en">Site &amp; Learning Center Globalization</div>
         </div>
-        <div class="proj-period">2018 — 2024</div>
+        <div class="proj-period" data-en="2018 — 2024">2018 — 2024</div>
       </div>
 
       <div class="proj-section">
         <div class="section-marker section-marker--dual accent-green"><span class="lbl"><span class="lbl-en">Context</span><span class="lbl-dot">·</span><span class="lbl-cn">背景</span></span><span class="line"></span></div>
-        <p class="proj-context">6 年長期戰役 — 從整併奠基(2018-2021)走到全球化擴張(2022-2024)。</p>
+        <p class="proj-context" data-en="A 6-year campaign — from consolidation groundwork (2018–2021) to global expansion (2022–2024).">6 年長期戰役 — 從整併奠基(2018-2021)走到全球化擴張(2022-2024)。</p>
       </div>
 
       <div class="proj-section">
         <div class="section-marker section-marker--dual accent-green"><span class="lbl"><span class="lbl-en">Scope</span><span class="lbl-dot">·</span><span class="lbl-cn">範疇</span></span><span class="line"></span></div>
         <div class="scope-cards-3">
           <div class="scope-card">
-            <div class="sc-title">系統收斂</div>
+            <div class="sc-title" data-en="Consolidation">系統收斂</div>
             <div class="sc-en">Consolidation</div>
             <ul>
-              <li>站點架構整併</li>
-              <li>RWD 設計統一</li>
-              <li>維運責任收斂</li>
+              <li data-en="Site architecture consolidation">站點架構整併</li>
+              <li data-en="Unified RWD design">RWD 設計統一</li>
+              <li data-en="Consolidated ops ownership">維運責任收斂</li>
             </ul>
-            <div class="sc-metric">8+ 站 → 2 站 &nbsp; <span class="hl-green">−75% 維運</span></div>
+            <div class="sc-metric" data-en="8+ sites → 2 &amp;nbsp; &lt;span class=&quot;hl-green&quot;&gt;−75% ops&lt;/span&gt;">8+ 站 → 2 站 &nbsp; <span class="hl-green">−75% 維運</span></div>
           </div>
           <div class="scope-card">
-            <div class="sc-title">學習中心改版</div>
+            <div class="sc-title" data-en="Learning Center Redesign">學習中心改版</div>
             <div class="sc-en">Learning Center</div>
             <ul>
-              <li>使用者路徑重設</li>
-              <li>預約與選師流程</li>
-              <li>個人化學習計劃</li>
+              <li data-en="Redesigned user journeys">使用者路徑重設</li>
+              <li data-en="Booking &amp; tutor-selection flow">預約與選師流程</li>
+              <li data-en="Personalized learning plans">個人化學習計劃</li>
             </ul>
-            <div class="sc-metric">核心轉換點優化</div>
+            <div class="sc-metric" data-en="Core conversion-point optimization">核心轉換點優化</div>
           </div>
           <div class="scope-card">
-            <div class="sc-title">全球化擴展</div>
+            <div class="sc-title" data-en="Globalization">全球化擴展</div>
             <div class="sc-en">Scale-up</div>
             <ul>
-              <li>多語系架構</li>
-              <li>在地化內容</li>
-              <li>跨區運營支援</li>
+              <li data-en="Multi-language architecture">多語系架構</li>
+              <li data-en="Localized content">在地化內容</li>
+              <li data-en="Cross-region operations support">跨區運營支援</li>
             </ul>
-            <div class="sc-metric"><span class="hl-green">7 語系 / 10+ 國</span></div>
+            <div class="sc-metric" data-en="&lt;span class=&quot;hl-green&quot;&gt;7 languages / 10+ countries&lt;/span&gt;"><span class="hl-green">7 語系 / 10+ 國</span></div>
           </div>
         </div>
       </div>
 
       <div class="outcome">
         <div class="section-marker section-marker--dual accent-green"><span class="lbl"><span class="lbl-en">Outcome</span><span class="lbl-dot">·</span><span class="lbl-cn">成果</span></span><span class="line"></span></div>
-        <div class="outcome-head"><em>加速商業擴張</em> — 用更少的系統,服務更多的市場</div>
-        <div class="outcome-metrics">
+        <div class="outcome-head" data-en="&lt;em&gt;Accelerated business expansion&lt;/em&gt; — serve more markets with fewer systems"><em>加速商業擴張</em> — 用更少的系統,服務更多的市場</div>
+        <div class="outcome-metrics" data-en="&lt;span&gt;Ops cost &lt;span class=&quot;hl-green&quot;&gt;−75%&lt;/span&gt;&lt;/span&gt;&lt;span&gt;&lt;span class=&quot;hl-green&quot;&gt;7 languages, 10+ countries&lt;/span&gt; live&lt;/span&gt;&lt;span&gt;Learning experience fully upgraded&lt;/span&gt;">
           <span>維運成本 <span class="hl-green">−75%</span></span>
           <span><span class="hl-green">7 語系 10+ 國</span>上線</span>
           <span>學習體驗全面升級</span>
@@ -1870,19 +1893,19 @@
     <section class="slide proj-3" data-slide="07">
       <div class="top-bar">
         <div class="top-bar-left">
-          <div class="label">專案 / Project 03</div>
+          <div class="label" data-en="Project 03">專案 / Project 03</div>
           <div class="top-rule"></div>
         </div>
         <div style="display:flex;flex-direction:column;align-items:flex-end;gap:.6rem">
           <div class="scope-scale">
-            <span class="lbl">影響範圍</span>
-            <span class="stage-item">流程</span>
+            <span class="lbl" data-en="Scope of impact">影響範圍</span>
+            <span class="stage-item" data-en="Process">流程</span>
             <span class="stage-arrow">›</span>
-            <span class="stage-item">市場</span>
+            <span class="stage-item" data-en="Market">市場</span>
             <span class="stage-arrow">›</span>
-            <span class="stage-item on">產品</span>
+            <span class="stage-item on" data-en="Product">產品</span>
             <span class="stage-arrow">›</span>
-            <span class="stage-item">組織</span>
+            <span class="stage-item" data-en="Org">組織</span>
           </div>
           <div class="pagenum">07 / 11</div>
         </div>
@@ -1893,33 +1916,33 @@
           <div class="zh">B2B 企業學習平台</div>
           <div class="en">B2B Enterprise Learning Platform</div>
         </div>
-        <div class="proj-period">2024 — 至今</div>
+        <div class="proj-period" data-en="2024 — Present">2024 — 至今</div>
       </div>
 
       <div class="proj-section">
         <div class="section-marker section-marker--dual accent-pink"><span class="lbl"><span class="lbl-en">Context</span><span class="lbl-dot">·</span><span class="lbl-cn">背景</span></span><span class="line"></span></div>
-        <p class="proj-context">服務鴻海、台達電、Apple 等國際集團大客戶,從多家客戶的差異化需求中,提煉可規模化的產品模組。</p>
+        <p class="proj-context" data-en="Serving global enterprise clients like Foxconn, Delta and Apple — distilling scalable product modules from diverse client needs.">服務鴻海、台達電、Apple 等國際集團大客戶,從多家客戶的差異化需求中,提煉可規模化的產品模組。</p>
       </div>
 
       <div class="proj-section">
         <div class="section-marker section-marker--dual accent-pink"><span class="lbl"><span class="lbl-en">Scope</span><span class="lbl-dot">·</span><span class="lbl-cn">範疇</span></span><span class="line"></span></div>
         <div class="scope-cards-2">
           <div class="scope-card">
-            <div class="sc-title">學員與課程管理</div>
+            <div class="sc-title" data-en="Learner &amp; Course Management">學員與課程管理</div>
             <div class="sc-en">Learner &amp; Course</div>
             <ul>
-              <li>組織與帳號管理</li>
-              <li>學習額度分配</li>
-              <li>排課與資源管理</li>
+              <li data-en="Org &amp; account management">組織與帳號管理</li>
+              <li data-en="Learning-credit allocation">學習額度分配</li>
+              <li data-en="Scheduling &amp; resource management">排課與資源管理</li>
             </ul>
           </div>
           <div class="scope-card">
-            <div class="sc-title">學習成效追蹤與評估</div>
+            <div class="sc-title" data-en="Performance Tracking &amp; Analytics">學習成效追蹤與評估</div>
             <div class="sc-en">Performance &amp; Analytics</div>
             <ul>
-              <li>能力評估與分級</li>
-              <li>進度追蹤儀表板</li>
-              <li>自動化報表推播</li>
+              <li data-en="Skill assessment &amp; leveling">能力評估與分級</li>
+              <li data-en="Progress-tracking dashboards">進度追蹤儀表板</li>
+              <li data-en="Automated report delivery">自動化報表推播</li>
             </ul>
           </div>
         </div>
@@ -1927,8 +1950,8 @@
 
       <div class="outcome">
         <div class="section-marker section-marker--dual accent-pink"><span class="lbl"><span class="lbl-en">Outcome</span><span class="lbl-dot">·</span><span class="lbl-cn">成果</span></span><span class="line"></span></div>
-        <div class="outcome-head"><em>重塑開發模式</em> — 從「逐案客製」變成「規模化交付」</div>
-        <div class="outcome-metrics">
+        <div class="outcome-head" data-en="&lt;em&gt;Reshaped delivery&lt;/em&gt; — from “per-client customization” to “scalable delivery”"><em>重塑開發模式</em> — 從「逐案客製」變成「規模化交付」</div>
+        <div class="outcome-metrics" data-en="&lt;span&gt;Module reuse &lt;span class=&quot;hl&quot;&gt;90%&lt;/span&gt;&lt;/span&gt;&lt;span&gt;Faster client onboarding&lt;/span&gt;&lt;span&gt;Serving multiple global enterprises&lt;/span&gt;">
           <span>模組複用率 <span class="hl">90%</span></span>
           <span>加速新客導入</span>
           <span>服務多家國際企業</span>
@@ -1940,19 +1963,19 @@
     <section class="slide proj-4" data-slide="08">
       <div class="top-bar">
         <div class="top-bar-left">
-          <div class="label">專案 / Project 04</div>
+          <div class="label" data-en="Project 04">專案 / Project 04</div>
           <div class="top-rule"></div>
         </div>
         <div style="display:flex;flex-direction:column;align-items:flex-end;gap:.6rem">
           <div class="scope-scale">
-            <span class="lbl">影響範圍</span>
-            <span class="stage-item">流程</span>
+            <span class="lbl" data-en="Scope of impact">影響範圍</span>
+            <span class="stage-item" data-en="Process">流程</span>
             <span class="stage-arrow">›</span>
-            <span class="stage-item">市場</span>
+            <span class="stage-item" data-en="Market">市場</span>
             <span class="stage-arrow">›</span>
-            <span class="stage-item">產品</span>
+            <span class="stage-item" data-en="Product">產品</span>
             <span class="stage-arrow">›</span>
-            <span class="stage-item on">組織</span>
+            <span class="stage-item on" data-en="Org">組織</span>
           </div>
           <div class="pagenum">08 / 11</div>
         </div>
@@ -1963,67 +1986,67 @@
           <div class="zh">AI 導入學習鏈路</div>
           <div class="en">AI Across the Learner Journey</div>
         </div>
-        <div class="proj-period">2025 — 至今</div>
+        <div class="proj-period" data-en="2025 — Present">2025 — 至今</div>
       </div>
 
       <div class="proj-section">
         <div class="section-marker section-marker--dual"><span class="lbl"><span class="lbl-en">Context</span><span class="lbl-dot">·</span><span class="lbl-cn">背景</span></span><span class="line"></span></div>
-        <p class="proj-context">傳統 EdTech 組織面對 LLM 浪潮,需從單點 PoC 走向跨旅程的策略級 AI 佈局。</p>
+        <p class="proj-context" data-en="A traditional EdTech org facing the LLM wave — moving from one-off PoCs to strategic, journey-wide AI.">傳統 EdTech 組織面對 LLM 浪潮,需從單點 PoC 走向跨旅程的策略級 AI 佈局。</p>
       </div>
 
       <div class="proj-section">
         <div class="section-marker section-marker--dual"><span class="lbl"><span class="lbl-en">Scope</span><span class="lbl-dot">·</span><span class="lbl-cn">範疇</span></span><span class="line"></span></div>
         <div class="journey-flow">
-          <span class="step">入學前</span><span class="arrow"></span>
-          <span class="step">上課中</span><span class="arrow"></span>
-          <span class="step">課後</span><span class="arrow"></span>
-          <span class="step">行銷 Funnel</span>
+          <span class="step" data-en="Pre-enrollment">入學前</span><span class="arrow"></span>
+          <span class="step" data-en="In-class">上課中</span><span class="arrow"></span>
+          <span class="step" data-en="Post-class">課後</span><span class="arrow"></span>
+          <span class="step" data-en="Marketing funnel">行銷 Funnel</span>
         </div>
         <div class="scope-cards-4">
           <div class="scope-card">
-            <div class="sc-title">CAT 定級考試</div>
+            <div class="sc-title" data-en="CAT Placement Test">CAT 定級考試</div>
             <div class="sc-en">Adaptive Test</div>
             <ul>
-              <li>適性化測驗</li>
-              <li>個人化分級</li>
-              <li>演算法共建</li>
+              <li data-en="Adaptive testing">適性化測驗</li>
+              <li data-en="Personalized leveling">個人化分級</li>
+              <li data-en="Co-built algorithms">演算法共建</li>
             </ul>
-            <div class="sc-metric">PoC 中</div>
+            <div class="sc-metric" data-en="In PoC">PoC 中</div>
           </div>
           <div class="scope-card">
-            <div class="sc-title">學習報告</div>
+            <div class="sc-title" data-en="Learning Report">學習報告</div>
             <div class="sc-en">Learning Report</div>
             <ul>
-              <li>學生視角:能力 + 引導</li>
-              <li>老師視角:同步 + 建議</li>
+              <li data-en="Student view: ability + guidance">學生視角:能力 + 引導</li>
+              <li data-en="Teacher view: sync + suggestions">老師視角:同步 + 建議</li>
             </ul>
-            <div class="sc-metric">PoC 中</div>
+            <div class="sc-metric" data-en="In PoC">PoC 中</div>
           </div>
           <div class="scope-card">
-            <div class="sc-title">ChatAI Speaking</div>
+            <div class="sc-title" data-en="ChatAI Speaking">ChatAI Speaking</div>
             <div class="sc-en">AI Speaking Partner</div>
             <ul>
-              <li>LLM 對話 API 整合</li>
-              <li>課後 24h AI 陪練</li>
+              <li data-en="LLM chat API integration">LLM 對話 API 整合</li>
+              <li data-en="24h post-class AI practice">課後 24h AI 陪練</li>
             </ul>
-            <div class="sc-metric"><span class="hl-green">1mo 上線</span></div>
+            <div class="sc-metric" data-en="&lt;span class=&quot;hl-green&quot;&gt;Live in 1 mo&lt;/span&gt;"><span class="hl-green">1mo 上線</span></div>
           </div>
           <div class="scope-card">
-            <div class="sc-title">AI Blog Editor</div>
+            <div class="sc-title" data-en="AI Blog Editor">AI Blog Editor</div>
             <div class="sc-en">AI Content Engine</div>
             <ul>
-              <li>自主提案 · 主導交付</li>
-              <li>Otterly Leader 象限</li>
+              <li data-en="Self-initiated · led delivery">自主提案 · 主導交付</li>
+              <li data-en="Otterly Leader quadrant">Otterly Leader 象限</li>
             </ul>
-            <div class="sc-metric"><span class="hl">56%</span> / <span class="hl">7×</span></div>
+            <div class="sc-metric" data-en="&lt;span class=&quot;hl&quot;&gt;56%&lt;/span&gt; / &lt;span class=&quot;hl&quot;&gt;7×&lt;/span&gt;"><span class="hl">56%</span> / <span class="hl">7×</span></div>
           </div>
         </div>
       </div>
 
       <div class="outcome">
         <div class="section-marker section-marker--dual"><span class="lbl"><span class="lbl-en">Outcome</span><span class="lbl-dot">·</span><span class="lbl-cn">成果</span></span><span class="line"></span></div>
-        <div class="outcome-head"><em>增強組織能力</em> — 用專案累積 AI 開發實力,讓「真人 + AI」成為新的學習標準</div>
-        <div class="outcome-metrics">
+        <div class="outcome-head" data-en="&lt;em&gt;Strengthened org capability&lt;/em&gt; — building AI muscle through projects, making “human + AI” the new learning standard"><em>增強組織能力</em> — 用專案累積 AI 開發實力,讓「真人 + AI」成為新的學習標準</div>
+        <div class="outcome-metrics" data-en="&lt;span&gt;2 live + 2 in PoC&lt;/span&gt;&lt;span&gt;Otterly Leader quadrant&lt;/span&gt;&lt;span&gt;Throughput &lt;span class=&quot;hl&quot;&gt;7×&lt;/span&gt;&lt;/span&gt;">
           <span>2 項已上線 + 2 項 PoC 中</span>
           <span>Otterly Leader 象限</span>
           <span>產能 <span class="hl">7×</span></span>
@@ -2035,13 +2058,13 @@
     <section class="slide proj-5" data-slide="09">
       <div class="top-bar">
         <div class="top-bar-left">
-          <div class="label">專案 / Project 05</div>
+          <div class="label" data-en="Project 05">專案 / Project 05</div>
           <div class="top-rule"></div>
         </div>
         <div style="display:flex;flex-direction:column;align-items:flex-end;gap:.6rem">
           <div class="beyond-marker">
             <span class="lbl">Beyond Journey</span>
-            <span class="tag">跨域 0 → 1</span>
+            <span class="tag" data-en="Cross-domain 0 → 1">跨域 0 → 1</span>
           </div>
           <div class="pagenum">09 / 11</div>
         </div>
@@ -2052,62 +2075,62 @@
           <div class="zh">TutorABC Shop 直播電商</div>
           <div class="en">Live Commerce · 0 → 1 MVP</div>
         </div>
-        <div class="proj-period">2023 · 6 個月</div>
+        <div class="proj-period" data-en="2023 · 6 months">2023 · 6 個月</div>
       </div>
 
       <div class="proj-section">
         <div class="section-marker section-marker--dual"><span class="lbl"><span class="lbl-en">Context</span><span class="lbl-dot">·</span><span class="lbl-cn">背景</span></span><span class="line"></span></div>
-        <p class="proj-context">在 SaaS / EdTech 主業之外,集團跨入直播電商新業態,需以 6 個月時程完成 0 → 1 商業驗證。</p>
+        <p class="proj-context" data-en="Beyond the core SaaS / EdTech business, the group entered live commerce — validating 0 → 1 in a 6-month window.">在 SaaS / EdTech 主業之外,集團跨入直播電商新業態,需以 6 個月時程完成 0 → 1 商業驗證。</p>
       </div>
 
       <div class="proj-section">
         <div class="section-marker section-marker--dual"><span class="lbl"><span class="lbl-en">Scope</span><span class="lbl-dot">·</span><span class="lbl-cn">範疇</span></span><span class="line"></span></div>
         <div class="cross-stack">
           <div class="stack-cell">
-            <div class="stack-label">Layer 01 · 直播</div>
-            <div class="stack-name">直播間</div>
-            <div class="stack-desc">直播串流整合 / 即時互動 / 觀眾管理</div>
+            <div class="stack-label" data-en="Layer 01 · Live">Layer 01 · 直播</div>
+            <div class="stack-name" data-en="Live Room">直播間</div>
+            <div class="stack-desc" data-en="Live-stream integration / real-time interaction / audience management">直播串流整合 / 即時互動 / 觀眾管理</div>
           </div>
           <div class="stack-cell">
-            <div class="stack-label">Layer 02 · 前台</div>
-            <div class="stack-name">商城前台</div>
-            <div class="stack-desc">商品瀏覽 / 購物車 / 會員體驗</div>
+            <div class="stack-label" data-en="Layer 02 · Storefront">Layer 02 · 前台</div>
+            <div class="stack-name" data-en="Storefront">商城前台</div>
+            <div class="stack-desc" data-en="Browsing / cart / member experience">商品瀏覽 / 購物車 / 會員體驗</div>
           </div>
           <div class="stack-cell">
-            <div class="stack-label">Layer 03 · 商品</div>
-            <div class="stack-name">商品與訂單</div>
-            <div class="stack-desc">商品上架 / 庫存管理 / 訂單建立</div>
+            <div class="stack-label" data-en="Layer 03 · Catalog">Layer 03 · 商品</div>
+            <div class="stack-name" data-en="Products &amp; Orders">商品與訂單</div>
+            <div class="stack-desc" data-en="Listing / inventory / order creation">商品上架 / 庫存管理 / 訂單建立</div>
           </div>
           <div class="stack-cell">
-            <div class="stack-label">Layer 04 · 金流</div>
-            <div class="stack-name">支付與對帳</div>
-            <div class="stack-desc">第三方金流串接 / 交易處理 / 退款流程</div>
+            <div class="stack-label" data-en="Layer 04 · Payments">Layer 04 · 金流</div>
+            <div class="stack-name" data-en="Payment &amp; Reconciliation">支付與對帳</div>
+            <div class="stack-desc" data-en="Third-party payment integration / transaction handling / refunds">第三方金流串接 / 交易處理 / 退款流程</div>
           </div>
         </div>
         <div class="cross-metrics">
           <div class="cross-metric">
-            <div class="cm-value">6 mo</div>
-            <div class="cm-label">從零到 MVP 上線</div>
+            <div class="cm-value" data-en="6 mo">6 mo</div>
+            <div class="cm-label" data-en="Zero to MVP launch">從零到 MVP 上線</div>
           </div>
           <div class="cross-metric">
-            <div class="cm-value">4 系統</div>
-            <div class="cm-label">直播 / 前台 / 商品 / 金流</div>
+            <div class="cm-value" data-en="4 systems">4 系統</div>
+            <div class="cm-label" data-en="Live / storefront / catalog / payments">直播 / 前台 / 商品 / 金流</div>
           </div>
           <div class="cross-metric">
-            <div class="cm-value">1 PM</div>
-            <div class="cm-label">主責 PM 跨域操盤</div>
+            <div class="cm-value" data-en="1 PM">1 PM</div>
+            <div class="cm-label" data-en="Lead PM across domains">主責 PM 跨域操盤</div>
           </div>
           <div class="cross-metric">
-            <div class="cm-value">New</div>
-            <div class="cm-label">集團首次跨入電商業態</div>
+            <div class="cm-value" data-en="New">New</div>
+            <div class="cm-label" data-en="Group's first move into e-commerce">集團首次跨入電商業態</div>
           </div>
         </div>
       </div>
 
       <div class="outcome">
         <div class="section-marker section-marker--dual"><span class="lbl"><span class="lbl-en">Outcome</span><span class="lbl-dot">·</span><span class="lbl-cn">成果</span></span><span class="line"></span></div>
-        <div class="outcome-head"><em>跨域驗證</em> — 從 SaaS 到電商金流的能力遷移,打通「直播 → 下單 → 支付 → 對帳」交易全鏈路</div>
-        <div class="outcome-metrics">
+        <div class="outcome-head" data-en="&lt;em&gt;Cross-domain validation&lt;/em&gt; — transferring SaaS skills to commerce payments, connecting the full “live → order → pay → reconcile” chain"><em>跨域驗證</em> — 從 SaaS 到電商金流的能力遷移,打通「直播 → 下單 → 支付 → 對帳」交易全鏈路</div>
+        <div class="outcome-metrics" data-en="&lt;span&gt;4-system integration&lt;/span&gt;&lt;span&gt;6-month 0 → 1 MVP&lt;/span&gt;&lt;span&gt;Hands-on payment-systems experience&lt;/span&gt;">
           <span>跨 4 系統整合</span>
           <span>6 個月 0 → 1 MVP</span>
           <span>金流系統實戰經驗</span>
@@ -2119,7 +2142,7 @@
     <section class="slide" data-slide="10">
       <div class="top-bar">
         <div class="top-bar-left">
-          <div class="label">工作信念 / Values</div>
+          <div class="label" data-en="Values">工作信念 / Values</div>
           <div class="top-rule"></div>
         </div>
         <div class="pagenum">10 / 11</div>
@@ -2136,7 +2159,7 @@
           <div class="v-body">
             <div class="v-en">Stay Curious</div>
             <div class="v-zh">保持好奇</div>
-            <div class="v-desc">謹慎觀察、發現機會,勇於嘗試新科技。</div>
+            <div class="v-desc" data-en="Observe closely, spot opportunities, and embrace new tech.">謹慎觀察、發現機會,勇於嘗試新科技。</div>
           </div>
         </div>
         <div class="value-card v2">
@@ -2144,7 +2167,7 @@
           <div class="v-body">
             <div class="v-en">Stay Grounded</div>
             <div class="v-zh">務實落地</div>
-            <div class="v-desc">不打誑語、凡事有依據,動手做,不只說。</div>
+            <div class="v-desc" data-en="No empty talk — everything evidence-based; do, don't just say.">不打誑語、凡事有依據,動手做,不只說。</div>
           </div>
         </div>
         <div class="value-card v3">
@@ -2152,7 +2175,7 @@
           <div class="v-body">
             <div class="v-en">Stay Aligned</div>
             <div class="v-zh">緊密溝通</div>
-            <div class="v-desc">主動同步,讓 stakeholders 始終 on the same page。</div>
+            <div class="v-desc" data-en="Sync proactively so stakeholders stay on the same page.">主動同步,讓 stakeholders 始終 on the same page。</div>
           </div>
         </div>
         <div class="value-card v4">
@@ -2160,7 +2183,7 @@
           <div class="v-body">
             <div class="v-en">Stay Adaptive</div>
             <div class="v-zh">靈活應變</div>
-            <div class="v-desc">沒有最佳解,只有最適解;鎖定目標,選最合用的方案。</div>
+            <div class="v-desc" data-en="No best solution, only the best fit — lock the goal, pick what works.">沒有最佳解,只有最適解;鎖定目標,選最合用的方案。</div>
           </div>
         </div>
       </div>
@@ -2170,7 +2193,7 @@
     <section class="slide" data-slide="11">
       <div class="top-bar">
         <div class="top-bar-left">
-          <div class="label">Closing</div>
+          <div class="label" data-en="Closing">Closing</div>
           <div class="top-rule"></div>
         </div>
         <div class="pagenum">11 / 11</div>
@@ -2296,6 +2319,26 @@
     const dx = e.changedTouches[0].clientX - touchX;
     if(Math.abs(dx) > 50){ go(current + (dx<0?1:-1)); }
   }, {passive:true});
+  /* ===== Language Toggle (中 / EN) ===== */
+  (function(){
+    const btn = document.getElementById('lang-toggle');
+    if(!btn) return;
+    const zhEl = btn.querySelector('.lt-zh');
+    const enEl = btn.querySelector('.lt-en');
+    let isEn = false;
+    function applyLang(en){
+      document.querySelectorAll('[data-en]').forEach(function(el){
+        if(el.getAttribute('data-zh-html') === null){ el.setAttribute('data-zh-html', el.innerHTML); }
+        el.innerHTML = en ? el.getAttribute('data-en') : el.getAttribute('data-zh-html');
+      });
+      document.body.classList.toggle('lang-en', en);
+      document.documentElement.lang = en ? 'en' : 'zh-Hant';
+      if(zhEl) zhEl.classList.toggle('on', !en);
+      if(enEl) enEl.classList.toggle('on', en);
+      isEn = en;
+    }
+    btn.addEventListener('click', function(){ applyLang(!isEn); });
+  })();
 </script>
 
 </body>
