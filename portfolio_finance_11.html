@@ -1,0 +1,2256 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow">
+<title>Portfolio · Tai-Ting Huang (Febrey) · 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=JetBrains+Mono:wght@400..600&family=Noto+Sans+TC:wght@300..900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f5f5f3;
+    --paper:#ffffff;
+    --ink:#041954;
+    --ink-2:#112F82;
+    --ink-soft:#2a3a6b;
+    --body:#3a3a3a;
+    --muted:#888888;
+    --muted-soft:#b5b5b5;
+    --hair:#e6e6e3;
+    --hair-soft:#f0f0ed;
+    --blue:#003BFF;
+    --blue-bright:#305FFF;
+    --pink:#E64DB3;
+    --pink-soft:#F35ABF;
+    --pink-deep:#CC3399;
+    --green:#0B9382;
+    --green-bright:#01B39A;
+    --green-deep:#03837C;
+    --amber:#B8721A;
+    --amber-bright:#D88A2A;
+    --purple:#BE42B5;
+    --purple-bright:#D55ECC;
+    --orange:#D97757;
+    --orange-bright:#E58F73;
+    --indigo:#6458C4;
+    --indigo-bright:#8278D6;
+    --font-sans:"Geist","Noto Sans TC",-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;
+    --font-mono:"JetBrains Mono","SF Mono",ui-monospace,monospace;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--ink);font-family:var(--font-sans);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  ::selection{background:var(--ink);color:#fff}
+
+  /* ===== Deck ===== */
+  .deck{
+    position:fixed;inset:0;
+    display:flex;align-items:center;justify-content:center;
+    padding:24px 24px 64px;
+  }
+  .stage{
+    position:relative;
+    width:min(100%, calc((100vh - 88px) * 16 / 9));
+    aspect-ratio:16/9;
+    background:var(--paper);
+    box-shadow:0 30px 80px -50px rgba(4,25,84,.35), 0 0 0 1px rgba(4,25,84,.06);
+    overflow:hidden;
+    border-radius:2px;
+  }
+  .slide{
+    position:absolute;inset:0;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .4s ease;
+    display:flex;flex-direction:column;
+    padding:4% 5%;
+  }
+  .slide.active{opacity:1;pointer-events:auto}
+
+  /* ===== Typography ===== */
+  .label{
+    font-family:var(--font-mono);
+    font-size:.66rem;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--ink);
+    font-weight:500;
+  }
+  .label-muted{color:var(--muted)}
+  .pagenum{
+    font-family:var(--font-mono);
+    font-size:.7rem;
+    letter-spacing:.1em;
+    color:var(--ink);
+    font-weight:500;
+  }
+
+  .top-bar{
+    display:flex;align-items:flex-start;justify-content:space-between;
+    gap:1rem;
+  }
+  .top-bar-left{display:flex;flex-direction:column;gap:.5rem;min-width:0}
+  .top-rule{width:36px;height:2px;background:var(--ink)}
+
+  /* Section marker — small label + thin line */
+  .section-marker{
+    display:flex;align-items:center;gap:.7rem;
+  }
+  .section-marker .lbl{
+    font-family:var(--font-mono);
+    font-size:.66rem;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--ink);
+    font-weight:600;
+  }
+  .section-marker .line{flex:1;height:1px;background:var(--hair)}
+
+  /* Accent variants — colored leading line segment */
+  .section-marker.accent-pink .line{background:linear-gradient(to right, var(--pink) 0, var(--pink) 32px, var(--hair) 32px)}
+  .section-marker.accent-green .line{background:linear-gradient(to right, var(--green) 0, var(--green) 32px, var(--hair) 32px)}
+  .section-marker.accent-blue .line{background:linear-gradient(to right, var(--blue) 0, var(--blue) 32px, var(--hair) 32px)}
+
+  /* When NOT dual, the legacy single-label accent colors the whole label */
+  .section-marker.accent-pink:not(.section-marker--dual) .lbl{color:var(--pink)}
+  .section-marker.accent-green:not(.section-marker--dual) .lbl{color:var(--green)}
+  .section-marker.accent-blue:not(.section-marker--dual) .lbl{color:var(--blue)}
+
+  /* When dual, only the EN portion gets the accent color (matches About style) */
+  .section-marker--dual.accent-pink .lbl-en{color:var(--pink)}
+  .section-marker--dual.accent-green .lbl-en{color:var(--green)}
+  .section-marker--dual.accent-blue .lbl-en{color:var(--blue)}
+
+  /* Brand mark — 3 colored squares */
+  .brand-mark{display:flex;gap:4px;align-items:center}
+  .brand-mark span{width:18px;height:18px;display:block}
+  .brand-mark .b{background:var(--blue)}
+  .brand-mark .g{background:var(--green)}
+  .brand-mark .p{background:var(--pink)}
+
+  /* Shared page title (for About, Experience, etc.) */
+  .page-title{
+    margin-top:1.4%;
+    display:flex;flex-direction:column;gap:.3rem;
+  }
+  .page-title .en{
+    font-family:var(--font-sans);
+    font-weight:800;
+    font-size:clamp(1.7rem, 3.4vw, 2.6rem);
+    line-height:.95;letter-spacing:-.03em;
+    color:var(--ink);text-transform:uppercase;
+  }
+  .page-title .zh{
+    font-family:"Noto Sans TC",sans-serif;
+    font-weight:400;
+    font-size:.88rem;letter-spacing:.22em;color:var(--muted);
+  }
+
+  /* ===== Slide 01 — COVER ===== */
+  .cover .top-bar{align-items:center}
+  .cover-meta{
+    font-family:var(--font-mono);
+    font-size:.7rem;letter-spacing:.2em;color:var(--ink);font-weight:500;
+    text-transform:uppercase;
+  }
+  .cover-meta .sep{margin:0 .7rem;color:var(--muted-soft)}
+  .cover-stack{
+    flex:1;
+    display:flex;flex-direction:column;justify-content:center;
+    gap:1.2rem;
+  }
+  .cover-title{
+    font-family:var(--font-sans);
+    font-weight:800;
+    font-size:clamp(3.5rem, 9.5vw, 8rem);
+    line-height:.92;
+    letter-spacing:-.04em;
+    color:var(--ink);
+    text-transform:uppercase;
+  }
+  .cover-title .row{display:block}
+  .cover-zh{
+    font-family:"Noto Sans TC",sans-serif;
+    font-weight:400;
+    font-size:clamp(1.5rem, 3vw, 2.4rem);
+    letter-spacing:.05em;
+    color:var(--muted);
+    margin-top:.4rem;
+  }
+
+  .cover-footer{
+    display:grid;
+    grid-template-columns:1fr auto;
+    align-items:flex-end;
+    gap:1rem;
+    padding-top:1rem;
+  }
+  .cover-name-block{display:flex;flex-direction:column;gap:.55rem}
+  .cover-name{
+    font-family:var(--font-sans);
+    font-weight:700;
+    font-size:clamp(1rem, 1.5vw, 1.35rem);
+    letter-spacing:.02em;
+    color:var(--ink);
+    text-transform:uppercase;
+  }
+  .cover-name .cjk{
+    font-family:"Noto Sans TC",sans-serif;
+    font-weight:500;
+    letter-spacing:.05em;
+    margin-left:.6rem;
+    text-transform:none;
+  }
+  .cover-role{
+    font-family:"Noto Sans TC",sans-serif;
+    font-weight:400;
+    font-size:.9rem;
+    color:var(--body);
+    letter-spacing:.02em;
+  }
+  .cover-contact{
+    font-family:var(--font-mono);
+    font-size:.7rem;
+    letter-spacing:.1em;
+    color:var(--ink);
+    display:flex;gap:1.5rem;
+    margin-top:.4rem;
+  }
+
+  /* ===== Slide 02 — CONTENTS (FIXED) ===== */
+  .contents-title{
+    margin-top:2.5%;
+    display:flex;flex-direction:column;gap:.4rem;
+  }
+  .contents-title .en{
+    font-family:var(--font-sans);
+    font-weight:800;
+    font-size:clamp(2.4rem, 5.2vw, 4.2rem);
+    line-height:.95;
+    letter-spacing:-.03em;
+    color:var(--ink);
+    text-transform:uppercase;
+  }
+  .contents-title .zh{
+    font-family:"Noto Sans TC",sans-serif;
+    font-weight:400;
+    font-size:1rem;letter-spacing:.25em;color:var(--muted);
+  }
+
+  .toc-list{
+    margin-top:2.4rem;
+    display:flex;flex-direction:column;
+  }
+  .toc-row{
+    display:grid;
+    grid-template-columns:48px 1fr auto;
+    align-items:baseline;
+    gap:1.5rem;
+    padding:.75rem 0;
+    border-bottom:1px solid var(--hair);
+  }
+  .toc-row:last-child{border-bottom:none}
+  .toc-num{
+    font-family:var(--font-mono);
+    font-size:.85rem;letter-spacing:.05em;color:var(--ink);font-weight:600;
+  }
+  .toc-name{
+    display:flex;align-items:baseline;gap:1.2rem;
+  }
+  .toc-en{
+    font-family:var(--font-sans);
+    font-weight:700;
+    font-size:clamp(1.4rem, 2.4vw, 1.95rem);
+    letter-spacing:-.01em;
+    color:var(--ink);
+  }
+  .toc-zh{
+    font-family:"Noto Sans TC",sans-serif;
+    font-weight:400;
+    font-size:.92rem;letter-spacing:.15em;color:var(--muted);
+  }
+  .toc-page{
+    font-family:var(--font-mono);
+    font-size:.78rem;letter-spacing:.08em;color:var(--ink);font-weight:500;
+  }
+
+  .product-tiles{
+    margin-top:1.4rem;
+    display:grid;grid-template-columns:repeat(4, 1fr);
+    gap:.7rem;
+  }
+  .product-tile{
+    border:1px solid var(--hair);
+    padding:.85rem .9rem .8rem;
+    display:flex;flex-direction:column;gap:.5rem;
+    background:var(--paper);
+    position:relative;
+    min-height:108px;
+  }
+  .product-tile .bar{
+    position:absolute;top:0;left:0;width:32px;height:2px;
+  }
+  .product-tile .tile-num{
+    font-family:var(--font-mono);
+    font-size:.65rem;letter-spacing:.15em;color:var(--muted);font-weight:500;
+  }
+  .product-tile .tile-page{
+    font-family:var(--font-mono);
+    font-size:.65rem;color:var(--ink);position:absolute;top:.85rem;right:.9rem;font-weight:500;
+  }
+  .product-tile .tile-key{
+    font-family:"Noto Sans TC",sans-serif;
+    font-weight:600;font-size:.92rem;line-height:1.35;color:var(--ink);
+    letter-spacing:.03em;
+  }
+  .product-tile .tile-key .head{display:block;font-size:.75rem;font-weight:500;color:var(--muted);margin-bottom:.15rem;letter-spacing:.08em}
+  .product-tile .tile-sub{
+    font-family:var(--font-sans);
+    font-size:.7rem;color:var(--muted);margin-top:auto;letter-spacing:.02em;
+    font-weight:400;
+  }
+  .product-tile.t1 .bar{background:var(--blue)}
+  .product-tile.t2 .bar{background:var(--green)}
+  .product-tile.t3 .bar{background:var(--pink)}
+  .product-tile.t4 .bar{background:var(--ink)}
+
+  /* ===== Slide 03 — ABOUT ===== */
+  .about-grid{
+    flex:1;
+    display:flex;flex-direction:column;
+    gap:.85rem;
+    margin-top:1rem;
+  }
+  .about-block{display:flex;flex-direction:column;gap:.55rem}
+  .about-profile{
+    font-family:"Noto Sans TC",sans-serif;
+    font-weight:400;
+    font-size:.94rem;line-height:1.6;color:var(--body);
+    max-width:90%;
+  }
+  .about-profile strong{color:var(--ink);font-weight:700}
+  .signals-grid{
+    display:grid;grid-template-columns:repeat(3, 1fr);gap:.8rem;
+    margin-top:.2rem;
+  }
+  .signal-card{
+    border:1px solid var(--hair);
+    padding:.85rem .95rem .9rem;
+    display:flex;flex-direction:column;gap:.45rem;
+    background:var(--paper);
+    position:relative;
+  }
+  .signal-card::before{
+    content:"";position:absolute;top:0;left:0;width:32px;height:2px;
+  }
+  .signal-card.s1::before{background:var(--blue)}
+  .signal-card.s2::before{background:var(--green)}
+  .signal-card.s3::before{background:var(--pink)}
+  .signal-card .signal-tag{
+    font-family:var(--font-mono);
+    font-size:.6rem;letter-spacing:.18em;color:var(--muted);font-weight:500;
+    text-transform:uppercase;
+  }
+  .signal-card .signal-title{
+    font-family:var(--font-sans);
+    font-weight:800;
+    font-size:1.2rem;line-height:1.05;letter-spacing:-.02em;color:var(--ink);
+    text-transform:uppercase;
+  }
+  .signal-card .signal-zh{
+    font-family:"Noto Sans TC",sans-serif;
+    font-weight:500;
+    font-size:.86rem;letter-spacing:.06em;color:var(--ink);
+    padding-top:.45rem;
+    border-top:1px solid var(--hair-soft);
+  }
+  .signal-card .signal-body{
+    font-family:"Noto Sans TC",sans-serif;
+    font-weight:400;
+    font-size:.76rem;line-height:1.55;color:var(--body);
+  }
+  .edu-row{
+    display:grid;grid-template-columns:auto 1fr;
+    gap:1rem;align-items:baseline;
+    padding:.25rem 0;
+  }
+  .edu-year{
+    font-family:var(--font-mono);
+    font-size:.72rem;letter-spacing:.1em;color:var(--muted);font-weight:500;
+  }
+  .edu-text{
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:.86rem;color:var(--ink);font-weight:400;
+  }
+  .lang-row{
+    margin-top:.35rem;
+    padding-top:.55rem;border-top:1px solid var(--hair-soft);
+    font-family:"Noto Sans TC",sans-serif;font-size:.8rem;color:var(--body);
+    font-weight:400;
+  }
+  .lang-row .sep{margin:0 .8rem;color:var(--muted-soft)}
+
+  /* ===== About v3 — Structured Cards (CURRENT / EARLIER / EDU & LANG) ===== */
+  .about-stack{
+    flex:1;
+    display:flex;flex-direction:column;
+    gap:.6rem;
+    margin-top:.65rem;
+  }
+  .about-section{
+    display:flex;flex-direction:column;
+    gap:.4rem;
+  }
+
+  /* Dual-language section marker (EN · 中文 + line) */
+  .section-marker--dual{display:flex;align-items:center;gap:.75rem}
+  .section-marker--dual .lbl{
+    display:inline-flex;align-items:baseline;gap:.55rem;
+  }
+  .section-marker--dual .lbl-en{
+    font-family:var(--font-mono);
+    font-size:.68rem;letter-spacing:.18em;
+    color:var(--blue);font-weight:600;
+    text-transform:uppercase;
+  }
+  .section-marker--dual .lbl-dot{
+    color:var(--muted-soft);
+    font-family:var(--font-mono);font-size:.72rem;
+  }
+  .section-marker--dual .lbl-cn{
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:.78rem;letter-spacing:.22em;
+    color:var(--ink);font-weight:600;
+  }
+
+  /* CURRENT — big TutorABC card */
+  .current-card{
+    border:1px solid var(--ink);
+    padding:.8rem 1.1rem .9rem;
+    display:flex;flex-direction:column;
+    gap:.65rem;
+    background:var(--paper);
+  }
+  .cc-header{
+    display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;
+  }
+  .cc-co{
+    font-family:var(--font-sans);font-weight:700;
+    font-size:1.15rem;letter-spacing:-.005em;color:var(--ink);
+    text-transform:uppercase;
+  }
+  .cc-co .cjk{
+    font-family:"Noto Sans TC",sans-serif;font-weight:500;
+    font-size:.88rem;letter-spacing:.08em;color:var(--ink-soft);
+    text-transform:none;margin-left:.55rem;
+  }
+  .cc-period{
+    font-family:var(--font-mono);font-size:.78rem;
+    letter-spacing:.08em;color:var(--blue);font-weight:600;
+  }
+  .cc-phases{
+    display:grid;grid-template-columns:repeat(3, 1fr);
+    gap:1rem;
+  }
+  .cc-phase{
+    padding-left:.8rem;
+    border-left:2px solid var(--hair);
+    display:flex;flex-direction:column;
+    gap:.28rem;
+  }
+  .cc-phase--current{border-left-color:var(--blue)}
+  .cp-period{
+    font-family:var(--font-mono);font-size:.7rem;
+    letter-spacing:.08em;color:var(--muted);font-weight:500;
+  }
+  .cc-phase--current .cp-period{color:var(--blue)}
+  .cp-role{
+    font-family:var(--font-sans);font-weight:700;
+    font-size:.95rem;color:var(--ink);
+    line-height:1.25;
+  }
+  .cp-team{
+    font-family:"Noto Sans TC",sans-serif;font-size:.74rem;
+    color:var(--muted);letter-spacing:.04em;font-weight:400;
+  }
+  .cp-scope{
+    font-family:"Noto Sans TC",sans-serif;font-size:.78rem;
+    color:var(--body);line-height:1.5;font-weight:400;
+    border-top:1px solid var(--hair-soft);
+    padding-top:.32rem;
+    margin-top:.08rem;
+  }
+
+  /* 2-card grid used by EARLIER and EDU & LANG */
+  .card-grid{
+    display:grid;grid-template-columns:1fr 1fr;
+    gap:.7rem;
+  }
+  .info-card{
+    border:1px solid #e1e3f0;
+    padding:.7rem .95rem .8rem;
+    display:flex;flex-direction:column;
+    gap:.32rem;
+    background:#F7F8FF;
+  }
+  .ic-header{
+    display:flex;justify-content:space-between;align-items:baseline;
+    gap:.8rem;
+  }
+  .ic-title{
+    font-family:var(--font-sans);font-weight:700;
+    font-size:.98rem;letter-spacing:-.005em;color:var(--ink);
+    text-transform:uppercase;
+  }
+  .ic-title .cjk{
+    font-family:"Noto Sans TC",sans-serif;font-weight:500;
+    font-size:.78rem;letter-spacing:.08em;color:var(--ink-soft);
+    text-transform:none;margin-left:.45rem;
+  }
+  .ic-meta{
+    font-family:var(--font-mono);font-size:.7rem;
+    letter-spacing:.08em;color:var(--muted);font-weight:500;
+  }
+  .ic-sub{
+    font-family:"Noto Sans TC",sans-serif;font-size:.82rem;
+    color:var(--ink);font-weight:600;letter-spacing:.04em;
+  }
+  .ic-body{
+    font-family:"Noto Sans TC",sans-serif;font-size:.8rem;
+    color:var(--body);line-height:1.5;font-weight:400;
+  }
+
+  /* Education card — stacked two-row layout */
+  .ic-stack{display:flex;flex-direction:column;gap:.32rem}
+  .ic-stack-row{display:flex;flex-direction:column;gap:.15rem}
+  .ic-divider{height:1px;background:#e1e3f0;margin:.05rem 0}
+
+  /* Language card */
+  .lang-list{display:flex;flex-direction:column;gap:.25rem}
+  .lang-item{
+    display:flex;align-items:baseline;gap:.65rem;
+    font-family:"Noto Sans TC",sans-serif;
+  }
+  .lang-item .lang-name{
+    font-weight:700;color:var(--ink);font-size:.95rem;
+    min-width:42px;letter-spacing:.04em;
+  }
+  .lang-item .lang-level{
+    font-size:.82rem;color:var(--body);font-weight:400;
+    letter-spacing:.02em;
+  }
+  .lang-item .lang-level::before{
+    content:"·";margin-right:.45rem;color:var(--muted-soft);
+  }
+  .lang-cert{
+    font-family:var(--font-mono);font-size:.78rem;
+    letter-spacing:.08em;color:var(--ink);font-weight:600;
+  }
+
+  /* In-About compact experience list */
+  .exp-list{
+    display:flex;flex-direction:column;
+    gap:.85rem;
+    margin-top:.2rem;
+  }
+  .exp-block{
+    display:flex;flex-direction:column;
+    gap:.45rem;
+  }
+  .exp-header{
+    display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;
+    padding-bottom:.35rem;
+    border-bottom:1px solid var(--hair-soft);
+  }
+  .exp-co{
+    font-family:var(--font-sans);
+    font-weight:700;
+    font-size:1.02rem;
+    letter-spacing:-.005em;
+    color:var(--ink);
+    text-transform:uppercase;
+    line-height:1.2;
+  }
+  .exp-co .cjk{
+    font-family:"Noto Sans TC",sans-serif;
+    font-weight:500;
+    font-size:.84rem;letter-spacing:.08em;
+    color:var(--ink-soft);
+    text-transform:none;
+    margin-left:.5rem;
+  }
+  .exp-period{
+    font-family:var(--font-mono);
+    font-size:.72rem;letter-spacing:.08em;
+    color:var(--ink);font-weight:600;
+  }
+  .exp-period--current{
+    color:var(--blue);
+  }
+  .exp-roles{
+    display:flex;flex-direction:column;
+    gap:.4rem;
+  }
+  .role-row{
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:1rem;align-items:baseline;
+    padding-left:.75rem;
+    border-left:2px solid var(--hair);
+  }
+  .role-row--current{border-left-color:var(--blue)}
+  .role-info{
+    display:flex;align-items:baseline;
+    gap:.65rem;flex-wrap:wrap;
+  }
+  .role-title{
+    font-family:var(--font-sans);font-weight:700;
+    font-size:.92rem;color:var(--ink);
+    letter-spacing:.005em;
+  }
+  .role-detail{
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:.8rem;color:var(--body);
+    font-weight:400;
+  }
+  .role-detail::before{
+    content:"·";margin-right:.4rem;color:var(--muted-soft);
+  }
+  .role-period{
+    font-family:var(--font-mono);
+    font-size:.68rem;letter-spacing:.05em;
+    color:var(--muted);font-weight:500;
+  }
+  .role-row--current .role-period{
+    color:var(--blue);font-weight:600;
+  }
+
+  .edu-block{display:flex;flex-direction:column}
+
+  /* ===== Slide 04 — SKILLS ===== */
+  .skills-title{
+    margin-top:2.5%;
+    display:flex;flex-direction:column;gap:.4rem;
+  }
+  .skills-title .en{
+    font-family:var(--font-sans);
+    font-weight:800;
+    font-size:clamp(2rem, 4.4vw, 3.4rem);
+    line-height:.95;letter-spacing:-.03em;
+    color:var(--ink);text-transform:uppercase;
+  }
+  .skills-title .zh{
+    font-family:"Noto Sans TC",sans-serif;
+    font-weight:400;
+    font-size:.95rem;letter-spacing:.22em;color:var(--muted);
+  }
+  .skills-cats{
+    margin-top:1.8rem;
+    display:grid;grid-template-columns:repeat(2, 1fr);
+    gap:1.4rem 3rem;
+    flex:1;
+  }
+  .skill-cat{display:flex;flex-direction:column;gap:.7rem}
+  .skill-cat .section-marker{margin-bottom:.1rem}
+  /* legacy class kept harmless for fallback */
+  .skill-cat-name{
+    font-family:var(--font-mono);
+    font-size:.66rem;letter-spacing:.18em;color:var(--ink);font-weight:600;
+    padding-bottom:.45rem;border-bottom:2px solid var(--ink);
+    text-transform:uppercase;
+  }
+  .skill-row{
+    display:flex;flex-direction:column;
+    gap:7px;
+    padding:.1rem 0;
+  }
+  .skill-row-head{
+    display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;
+  }
+  .skill-name{
+    font-family:"Noto Sans TC",sans-serif;
+    font-weight:700;
+    font-size:1rem;color:var(--ink);
+    letter-spacing:.01em;
+  }
+  .skill-desc{
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:.78rem;color:var(--muted);
+    font-weight:400;letter-spacing:.02em;
+    text-align:right;
+  }
+  .skill-bar{
+    height:4px;background:var(--hair);
+    position:relative;
+  }
+  .skill-bar .fill{
+    height:100%;background:var(--ink);
+    position:absolute;left:0;top:0;
+  }
+
+  /* ===== Slide 05 — EXPERIENCE ===== */
+  .exp-flow{
+    flex:1;
+    display:flex;flex-direction:column;
+    margin-top:1.1rem;
+  }
+
+  .exp-row{
+    display:grid;
+    grid-template-columns:1fr 1fr 3fr;
+    gap:.8rem;
+    flex:1;
+  }
+
+  .exp-col{
+    border:1px solid var(--hair);
+    padding:.9rem 1rem 1rem;
+    display:flex;flex-direction:column;
+    gap:.55rem;
+    background:var(--paper);
+  }
+  .exp-col--main{
+    border-color:var(--ink);
+    padding:1rem 1.1rem 1.1rem;
+  }
+
+  .col-period{
+    font-family:var(--font-mono);
+    font-size:.7rem;letter-spacing:.1em;
+    color:var(--muted);font-weight:500;
+    padding-bottom:.5rem;
+    border-bottom:1px solid var(--hair-soft);
+  }
+  .col-period--main{
+    color:var(--blue);font-weight:600;
+    border-bottom-color:var(--blue);
+  }
+
+  .col-head{display:flex;flex-direction:column;gap:.15rem}
+  .col-co{
+    font-family:var(--font-sans);
+    font-weight:700;
+    font-size:1rem;
+    letter-spacing:-.01em;
+    color:var(--ink);
+    text-transform:uppercase;
+    line-height:1.2;
+  }
+  .col-co--main{font-size:1.25rem;display:flex;align-items:baseline;gap:.5rem;flex-wrap:wrap}
+  .col-cjk{
+    font-family:"Noto Sans TC",sans-serif;
+    font-weight:500;
+    font-size:.82rem;letter-spacing:.08em;
+    color:var(--ink-soft);
+  }
+  .col-cjk-inline{
+    font-family:"Noto Sans TC",sans-serif;
+    font-weight:500;
+    font-size:.85rem;letter-spacing:.08em;
+    color:var(--ink-soft);
+    text-transform:none;
+  }
+  .col-role{
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:.86rem;color:var(--ink);
+    font-weight:600;letter-spacing:.04em;
+  }
+
+  .col-bullets{
+    list-style:none;
+    display:flex;flex-direction:column;
+    gap:.32rem;
+    margin-top:.15rem;
+  }
+  .col-bullets li{
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:.84rem;
+    color:var(--body);
+    line-height:1.5;
+    padding-left:.85rem;
+    position:relative;
+    font-weight:400;
+  }
+  .col-bullets li::before{
+    content:"";
+    position:absolute;
+    left:0;top:.6em;
+    width:6px;height:1px;
+    background:var(--ink);
+  }
+
+  /* TutorABC phase row */
+  .phase-row{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:.95rem;
+    margin-top:.45rem;
+    flex:1;
+  }
+  .phase-cell{
+    padding-left:.85rem;
+    border-left:2px solid var(--hair);
+    display:flex;flex-direction:column;
+    gap:.35rem;
+  }
+  .phase-cell--current{border-left-color:var(--blue)}
+
+  .phase-cell .phase-period{
+    font-family:var(--font-mono);
+    font-size:.66rem;letter-spacing:.08em;
+    color:var(--muted);font-weight:500;
+  }
+  .phase-cell--current .phase-period{color:var(--blue)}
+
+  .phase-cell .phase-role{
+    font-family:var(--font-sans);font-weight:700;
+    font-size:.94rem;color:var(--ink);
+    line-height:1.25;
+    margin-top:.05rem;
+  }
+  .phase-cell .phase-team{
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:.74rem;color:var(--muted);
+    letter-spacing:.04em;font-weight:400;
+  }
+
+  .phase-bullets{
+    list-style:none;
+    display:flex;flex-direction:column;
+    gap:.28rem;
+    margin-top:.25rem;
+  }
+  .phase-bullets li{
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:.78rem;
+    color:var(--body);
+    line-height:1.45;
+    padding-left:.75rem;
+    position:relative;
+    font-weight:400;
+  }
+  .phase-bullets li::before{
+    content:"";
+    position:absolute;
+    left:0;top:.6em;
+    width:5px;height:1px;
+    background:var(--ink);
+  }
+
+  /* ===== Project Slides 06-09 ===== */
+  .proj-head-row{
+    margin-top:1.3rem;
+    display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;
+  }
+  .proj-title{display:flex;flex-direction:column;gap:.25rem}
+  .proj-title .zh{
+    font-family:"Noto Sans TC",sans-serif;
+    font-weight:700;
+    font-size:clamp(1.8rem, 3.4vw, 2.5rem);letter-spacing:.02em;line-height:1.1;color:var(--ink);
+  }
+  .proj-title .en{
+    font-family:var(--font-sans);font-weight:600;
+    font-size:1rem;letter-spacing:.02em;color:var(--muted);
+    text-transform:uppercase;
+  }
+  .proj-period{
+    font-family:var(--font-mono);
+    font-size:.85rem;letter-spacing:.08em;color:var(--ink);font-weight:600;
+  }
+
+  /* Impact scale */
+  .scope-scale{
+    display:flex;align-items:center;gap:.45rem;
+    font-family:var(--font-mono);
+  }
+  .scope-scale .lbl{
+    font-size:.62rem;letter-spacing:.18em;color:var(--muted);font-weight:600;
+    text-transform:uppercase;margin-right:.5rem;
+  }
+  .scope-scale .stage-item{
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:.72rem;letter-spacing:.05em;color:var(--muted);font-weight:500;
+    padding:.18rem .38rem;
+    border:1px solid transparent;
+  }
+  .scope-scale .stage-item.on{
+    color:#fff;background:var(--ink);border-color:var(--ink);font-weight:700;
+  }
+  .scope-scale .stage-arrow{color:var(--muted-soft);font-size:.7rem}
+
+  .proj-section{margin-top:1.1rem;display:flex;flex-direction:column;gap:.65rem}
+  .proj-context{
+    font-family:"Noto Sans TC",sans-serif;
+    font-weight:400;
+    font-size:.92rem;line-height:1.6;color:var(--body);
+    max-width:90%;
+  }
+
+  .scope-cards-3{display:grid;grid-template-columns:repeat(3, 1fr);gap:.8rem}
+  .scope-cards-2{display:grid;grid-template-columns:repeat(2, 1fr);gap:.8rem}
+  .scope-cards-4{display:grid;grid-template-columns:repeat(4, 1fr);gap:.65rem}
+
+  .scope-card{
+    border:1px solid #e1e3f0;
+    padding:.85rem .95rem .95rem;
+    display:flex;flex-direction:column;gap:.5rem;
+    background:#F7F8FF;
+    position:relative;
+  }
+  .scope-card::before{
+    content:"";position:absolute;top:0;left:0;width:24px;height:2px;
+    background:var(--ink);
+  }
+  .scope-card .sc-title{
+    font-family:"Noto Sans TC",sans-serif;
+    font-weight:700;
+    font-size:.98rem;letter-spacing:.03em;color:var(--ink);
+  }
+  .scope-card .sc-en{
+    font-family:var(--font-mono);
+    font-size:.6rem;letter-spacing:.12em;color:var(--muted);font-weight:500;
+    padding-bottom:.5rem;border-bottom:1px solid #e1e3f0;
+    text-transform:uppercase;
+  }
+  .scope-card ul{
+    list-style:none;display:flex;flex-direction:column;gap:.2rem;
+    font-family:"Noto Sans TC",sans-serif;font-size:.76rem;line-height:1.55;color:var(--body);
+    font-weight:400;
+  }
+  .scope-card ul li{padding-left:.7rem;position:relative}
+  .scope-card ul li::before{
+    content:"";position:absolute;left:0;top:.55em;width:4px;height:1px;background:var(--ink);
+  }
+  .scope-card .sc-metric{
+    margin-top:auto;
+    font-family:var(--font-mono);font-size:.74rem;letter-spacing:.04em;color:var(--ink);font-weight:600;
+    padding-top:.55rem;border-top:1px solid #e1e3f0;
+  }
+  .scope-card .sc-metric .hl{color:var(--pink);font-weight:700}
+  .scope-card .sc-metric .hl-green{color:var(--green);font-weight:700}
+  .scope-card .sc-metric::before{content:"→ ";color:var(--ink)}
+
+  .scope-cards-4 .scope-card{padding:.7rem .8rem .8rem}
+  .scope-cards-4 .scope-card .sc-title{font-size:.88rem}
+  .scope-cards-4 .scope-card ul{font-size:.7rem;line-height:1.5}
+  .scope-cards-4 .scope-card .sc-metric{font-size:.68rem}
+
+  /* Journey flow for Project 4 — labels above each card, aligned with scope-cards-4 grid */
+  .journey-flow{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:.65rem;
+    margin-bottom:.5rem;
+  }
+  .journey-flow .step{
+    font-family:var(--font-mono);
+    font-size:.68rem;letter-spacing:.14em;
+    color:var(--orange);
+    font-weight:700;
+    text-transform:uppercase;
+    padding:.18rem 0 .35rem;
+    border-bottom:1px dashed #e8d5c4;
+    text-align:left;
+  }
+  /* Legacy .arrow spans hidden */
+  .journey-flow .arrow{display:none}
+
+  /* Outcome */
+  .outcome{
+    margin-top:auto;
+    display:flex;flex-direction:column;gap:.55rem;
+    padding-top:.9rem;
+  }
+  .outcome-head{
+    font-family:"Noto Sans TC",sans-serif;font-weight:500;
+    font-size:1.02rem;letter-spacing:.03em;color:var(--ink);
+    line-height:1.45;
+  }
+  .outcome-head em{font-style:normal;font-weight:700;color:var(--ink)}
+  .outcome-metrics{
+    display:flex;gap:1.8rem;flex-wrap:wrap;
+    font-family:var(--font-mono);font-size:.78rem;letter-spacing:.04em;color:var(--ink);font-weight:600;
+  }
+  .outcome-metrics span::before{content:"▸ ";color:var(--ink)}
+  .outcome-metrics .hl{color:var(--pink)}
+  .outcome-metrics .hl-green{color:var(--green)}
+
+  /* Project color schemes */
+  .proj-1 .scope-card::before{background:var(--blue)}
+  .proj-1 .scope-scale .stage-item.on{background:var(--blue);border-color:var(--blue)}
+  .proj-1 .outcome-head em{color:var(--blue)}
+  .proj-1 .sc-metric .hl,
+  .proj-1 .sc-metric .hl-green,
+  .proj-1 .outcome-metrics .hl,
+  .proj-1 .outcome-metrics .hl-green{color:var(--blue)}
+
+  .proj-2 .scope-card::before{background:var(--green)}
+  .proj-2 .scope-scale .stage-item.on{background:var(--green);border-color:var(--green)}
+  .proj-2 .outcome-head em{color:var(--green)}
+  .proj-2 .sc-metric .hl,
+  .proj-2 .sc-metric .hl-green,
+  .proj-2 .outcome-metrics .hl,
+  .proj-2 .outcome-metrics .hl-green{color:var(--green)}
+
+  .proj-3 .scope-card::before{background:var(--pink)}
+  .proj-3 .scope-scale .stage-item.on{background:var(--pink);border-color:var(--pink)}
+  .proj-3 .outcome-head em{color:var(--pink)}
+  .proj-3 .sc-metric .hl,
+  .proj-3 .sc-metric .hl-green,
+  .proj-3 .outcome-metrics .hl,
+  .proj-3 .outcome-metrics .hl-green{color:var(--pink)}
+
+  .proj-4 .scope-card::before{background:var(--orange)}
+  .proj-4 .scope-scale .stage-item.on{background:var(--orange);border-color:var(--orange)}
+  .proj-4 .outcome-head em{color:var(--orange)}
+  .proj-4 .sc-metric .hl,
+  .proj-4 .sc-metric .hl-green,
+  .proj-4 .outcome-metrics .hl,
+  .proj-4 .outcome-metrics .hl-green{color:var(--orange)}
+
+  /* Project 5 — Live Commerce (Beyond Journey) */
+  .proj-5 .scope-card::before{background:var(--indigo)}
+  .proj-5 .outcome-head em{color:var(--indigo)}
+  .proj-5 .sc-metric .hl,
+  .proj-5 .sc-metric .hl-green,
+  .proj-5 .outcome-metrics .hl,
+  .proj-5 .outcome-metrics .hl-green{color:var(--indigo)}
+
+  /* Beyond Journey marker — replaces the impact-scale */
+  .beyond-marker{
+    display:flex;align-items:center;gap:.45rem;
+    font-family:var(--font-mono);
+  }
+  .beyond-marker .lbl{
+    font-size:.62rem;letter-spacing:.18em;color:var(--indigo);font-weight:700;
+    text-transform:uppercase;
+  }
+  .beyond-marker .tag{
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:.72rem;letter-spacing:.05em;color:#fff;font-weight:700;
+    padding:.18rem .5rem;
+    background:var(--indigo);
+    margin-left:.5rem;
+  }
+
+  /* Cross-domain stack — visualizes 直播 + 商城前台 + 商品 + 金流 as integrated layers */
+  .cross-stack{
+    display:grid;grid-template-columns:repeat(4, 1fr);gap:0;
+    border:1px solid #d8d4ee;
+    background:#F4F2FB;
+    margin-bottom:.6rem;
+    position:relative;
+  }
+  .cross-stack::before{
+    content:"";position:absolute;top:0;left:0;width:32px;height:2px;
+    background:var(--indigo);
+  }
+  .cross-stack .stack-cell{
+    padding:.7rem .85rem;
+    border-right:1px dashed #d4cee8;
+  }
+  .cross-stack .stack-cell:last-child{border-right:none}
+  .cross-stack .stack-label{
+    font-family:var(--font-mono);
+    font-size:.6rem;letter-spacing:.14em;color:var(--indigo);font-weight:600;
+    text-transform:uppercase;margin-bottom:.3rem;
+  }
+  .cross-stack .stack-name{
+    font-family:"Noto Sans TC",sans-serif;font-weight:700;
+    font-size:.92rem;letter-spacing:.03em;color:var(--ink);
+    margin-bottom:.25rem;
+  }
+  .cross-stack .stack-desc{
+    font-family:"Noto Sans TC",sans-serif;font-weight:400;
+    font-size:.7rem;color:var(--body);line-height:1.5;
+  }
+
+  /* Cross-domain metric grid for Live Commerce highlights */
+  .cross-metrics{
+    display:grid;grid-template-columns:repeat(4, 1fr);gap:.6rem;
+    margin-top:.65rem;
+  }
+  .cross-metric{
+    border:1px solid #e1e3f0;
+    background:#fff;
+    padding:.7rem .85rem;
+    display:flex;flex-direction:column;gap:.25rem;
+  }
+  .cross-metric .cm-value{
+    font-family:var(--font-sans);font-weight:800;
+    font-size:1.6rem;letter-spacing:-.02em;color:var(--indigo);
+    line-height:1;
+  }
+  .cross-metric .cm-label{
+    font-family:"Noto Sans TC",sans-serif;font-weight:500;
+    font-size:.74rem;color:var(--body);letter-spacing:.04em;
+  }
+
+  /* ===== Slide 10 — VALUES ===== */
+  .values-title{
+    margin-top:2.5%;display:flex;flex-direction:column;gap:.4rem;
+  }
+  .values-title .en{
+    font-family:var(--font-sans);font-weight:800;
+    font-size:clamp(2rem, 4.4vw, 3.4rem);line-height:.95;letter-spacing:-.03em;
+    color:var(--ink);text-transform:uppercase;
+  }
+  .values-title .zh{
+    font-family:"Noto Sans TC",sans-serif;font-weight:400;
+    font-size:.95rem;letter-spacing:.22em;color:var(--muted);
+  }
+  .values-intro{
+    font-family:"Noto Sans TC",sans-serif;font-weight:400;
+    font-size:.92rem;color:var(--body);
+    margin-top:1.3rem;letter-spacing:.04em;
+  }
+  .values-grid{
+    margin-top:1.2rem;flex:1;
+    display:grid;grid-template-columns:repeat(2, 1fr);gap:.9rem;
+  }
+  .value-card{
+    border:1px solid #e1e3f0;
+    padding:1.2rem 1.4rem;
+    display:grid;grid-template-columns:auto 1fr;gap:1.4rem;align-items:start;
+    position:relative;
+    background:#F7F8FF;
+  }
+  .value-card::before{
+    content:"";position:absolute;top:0;left:0;width:32px;height:2px;
+  }
+  .value-card.v1::before{background:var(--blue)}
+  .value-card.v2::before{background:var(--green)}
+  .value-card.v3::before{background:var(--pink)}
+  .value-card.v4::before{background:var(--ink)}
+
+  .value-card .v-num{
+    font-family:var(--font-mono);
+    font-size:.66rem;letter-spacing:.15em;color:var(--muted);font-weight:600;
+    writing-mode:vertical-rl;transform:rotate(180deg);
+    text-transform:uppercase;
+  }
+  .value-card .v-body{display:flex;flex-direction:column;gap:.55rem}
+  .value-card .v-en{
+    font-family:var(--font-sans);font-weight:800;
+    font-size:1.6rem;line-height:1;letter-spacing:-.02em;color:var(--ink);
+    text-transform:uppercase;
+  }
+  .value-card .v-zh{
+    font-family:"Noto Sans TC",sans-serif;font-weight:600;
+    font-size:1rem;letter-spacing:.1em;color:var(--ink);
+    padding-bottom:.55rem;border-bottom:1px solid #e1e3f0;
+  }
+  .value-card .v-desc{
+    font-family:"Noto Sans TC",sans-serif;font-weight:400;
+    font-size:.85rem;line-height:1.65;color:var(--body);
+  }
+
+  /* ===== Slide 11 — THANK YOU ===== */
+  .thanks-block{
+    flex:1;display:flex;flex-direction:column;justify-content:center;gap:1.4rem;
+    width:100%;
+  }
+  .thanks-en{
+    font-family:var(--font-sans);font-weight:800;
+    font-size:clamp(4rem,11vw,9rem);letter-spacing:-.04em;line-height:.95;
+    color:var(--ink);text-transform:uppercase;
+  }
+  .thanks-zh{
+    font-family:"Noto Sans TC",sans-serif;font-weight:400;
+    font-size:1.2rem;letter-spacing:.3em;color:var(--muted);
+  }
+  .thanks-footer{
+    display:flex;justify-content:space-between;align-items:center;gap:1rem;
+    border-top:1px solid var(--hair);padding-top:1.1rem;
+  }
+  .thanks-name-block{display:flex;flex-direction:column;gap:.3rem}
+  .thanks-name{
+    font-family:var(--font-sans);font-weight:700;
+    font-size:1.1rem;letter-spacing:.02em;color:var(--ink);
+    text-transform:uppercase;
+  }
+  .thanks-name .cjk{font-family:"Noto Sans TC",sans-serif;font-weight:500;font-size:.9rem;letter-spacing:.1em;color:var(--ink-soft);margin-left:.5rem;text-transform:none}
+  .thanks-contact{
+    font-family:var(--font-mono);font-size:.7rem;letter-spacing:.1em;color:var(--ink);
+    display:flex;gap:1.4rem;font-weight:500;
+  }
+
+  /* ===== Controls (OUTSIDE stage) ===== */
+  .controls{
+    position:fixed;
+    bottom:16px;left:50%;transform:translateX(-50%);
+    display:flex;align-items:center;gap:14px;
+    font-family:var(--font-mono);font-size:.7rem;letter-spacing:.12em;
+    background:var(--paper);
+    border:1px solid var(--hair);
+    padding:6px 14px;
+    z-index:50;
+    border-radius:2px;
+    box-shadow:0 4px 16px -8px rgba(4,25,84,.2);
+  }
+  .controls button{
+    background:transparent;border:none;cursor:pointer;
+    color:var(--ink);font-family:var(--font-mono);font-size:1rem;line-height:1;
+    padding:2px 6px;font-weight:600;
+    transition:opacity .2s;
+  }
+  .controls button:hover{opacity:.5}
+  .controls .counter{color:var(--ink);font-weight:600}
+  .controls .total{color:var(--muted)}
+
+  .progress{
+    position:fixed;top:0;left:0;height:2px;
+    background:var(--blue);
+    z-index:60;
+    transition:width .4s ease;
+  }
+
+  @media print{
+    @page{size:landscape;margin:0}
+    html,body{overflow:visible;background:white;height:auto}
+    .controls,.progress{display:none}
+  }
+
+  @media (max-aspect-ratio:16/9){
+    .stage{width:calc(100vw - 48px);height:auto}
+  }
+
+  /* ===== Password Gate ===== */
+  #gate{
+    position:fixed;inset:0;
+    background:var(--bg);
+    display:flex;align-items:center;justify-content:center;
+    z-index:9999;
+    font-family:var(--font-sans);
+  }
+  #gate.hidden{display:none}
+  .gate-stage{
+    width:min(420px, 90vw);
+    background:var(--paper);
+    border:1px solid rgba(4,25,84,.08);
+    box-shadow:0 30px 80px -50px rgba(4,25,84,.35);
+    padding:48px 44px 40px;
+    border-radius:2px;
+  }
+  .gate-brand{
+    display:flex;gap:4px;margin-bottom:32px;
+  }
+  .gate-brand span{width:14px;height:14px;display:block}
+  .gate-brand .b{background:var(--blue)}
+  .gate-brand .g{background:var(--green)}
+  .gate-brand .p{background:var(--pink)}
+  .gate-eyebrow{
+    font-family:var(--font-mono);
+    font-size:.7rem;letter-spacing:.22em;color:var(--muted);
+    text-transform:uppercase;
+    margin-bottom:.4rem;
+  }
+  .gate-title{
+    font-family:var(--font-sans);
+    font-weight:800;
+    font-size:1.8rem;letter-spacing:-.02em;color:var(--ink);
+    line-height:1;
+    margin-bottom:.5rem;
+  }
+  .gate-zh{
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:.85rem;color:var(--body);letter-spacing:.04em;
+    margin-bottom:32px;
+  }
+  .gate-form{display:flex;flex-direction:column;gap:.6rem}
+  .gate-input{
+    width:100%;
+    font-family:var(--font-mono);
+    font-size:1rem;letter-spacing:.16em;
+    padding:.85rem 1rem;
+    border:1px solid var(--hair);
+    background:var(--bg);
+    color:var(--ink);
+    outline:none;
+    transition:border-color .15s;
+    border-radius:2px;
+  }
+  .gate-input:focus{border-color:var(--ink)}
+  .gate-input.error{border-color:#D14B4B}
+  .gate-btn{
+    font-family:var(--font-sans);font-weight:700;
+    font-size:.85rem;letter-spacing:.1em;
+    padding:.85rem 1rem;
+    background:var(--ink);color:#fff;
+    border:none;cursor:pointer;
+    text-transform:uppercase;
+    transition:background .15s;
+    border-radius:2px;
+  }
+  .gate-btn:hover{background:#0a2a8e}
+  .gate-error{
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:.78rem;color:#D14B4B;
+    min-height:1.2rem;
+    letter-spacing:.04em;
+  }
+  /* Hide the deck content until unlocked */
+  .deck-locked .deck,
+  .deck-locked .controls,
+  .deck-locked .progress{visibility:hidden}
+</style>
+</head>
+<body class="deck-locked">
+
+<!-- ===== Password Gate ===== -->
+<div id="gate">
+  <div class="gate-stage">
+    <div class="gate-brand">
+      <span class="b"></span><span class="g"></span><span class="p"></span>
+    </div>
+    <div class="gate-eyebrow">Portfolio · Protected</div>
+    <div class="gate-title">Enter Password</div>
+    <div class="gate-zh">此份簡報設有存取限制,請輸入密碼。</div>
+    <form class="gate-form" id="gate-form" autocomplete="off">
+      <input
+        type="password"
+        id="gate-input"
+        class="gate-input"
+        placeholder="••••••"
+        autofocus
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <button type="submit" class="gate-btn">Unlock</button>
+      <div class="gate-error" id="gate-error"></div>
+    </form>
+  </div>
+</div>
+
+<div class="progress" id="progress" style="width:10%"></div>
+
+<div class="deck" id="deck">
+  <div class="stage" id="stage">
+
+    <!-- ===== SLIDE 01 — COVER ===== -->
+    <section class="slide cover active" data-slide="01">
+      <div class="top-bar">
+        <div class="cover-meta">PORTFOLIO<span class="sep">/</span>產品經理 PRODUCT MANAGER</div>
+        <div class="cover-meta">2026</div>
+      </div>
+
+      <div class="cover-stack">
+        <div class="cover-title">
+          <span class="row">Interview</span>
+          <span class="row">Presentation</span>
+        </div>
+        <div class="cover-zh">面試簡報</div>
+      </div>
+
+      <div class="cover-footer">
+        <div class="cover-name-block">
+          <div class="cover-name">Tai-Ting Huang · Febrey<span class="cjk">黃岱婷</span></div>
+          <div class="cover-role">資深產品經理 / R&amp;D Product Head · 10 年產品 · MarTech → EdTech → AI</div>
+          <div class="cover-contact">
+            <span>febreyhuang@gmail.com</span>
+            <span>Taipei, Taiwan</span>
+            <span>in/febrey-huang</span>
+          </div>
+        </div>
+        <div class="brand-mark">
+          <span class="b"></span><span class="g"></span><span class="p"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SLIDE 02 — CONTENTS ===== -->
+    <section class="slide" data-slide="02">
+      <div class="top-bar">
+        <div class="top-bar-left">
+          <div class="label">Contents</div>
+          <div class="top-rule"></div>
+        </div>
+        <div class="pagenum">02 / 11</div>
+      </div>
+
+      <div class="contents-title">
+        <div class="en">Contents</div>
+        <div class="zh">目錄</div>
+      </div>
+
+      <div class="toc-list">
+        <div class="toc-row">
+          <div class="toc-num">01</div>
+          <div class="toc-name">
+            <span class="toc-en">About</span>
+            <span class="toc-zh">關於我</span>
+          </div>
+          <div class="toc-page">p. 03</div>
+        </div>
+        <div class="toc-row">
+          <div class="toc-num">02</div>
+          <div class="toc-name">
+            <span class="toc-en">Skills</span>
+            <span class="toc-zh">工具熟練度</span>
+          </div>
+          <div class="toc-page">p. 04</div>
+        </div>
+        <div class="toc-row">
+          <div class="toc-num">03</div>
+          <div class="toc-name">
+            <span class="toc-en">Product</span>
+            <span class="toc-zh">產品實績</span>
+          </div>
+          <div class="toc-page">p. 05 — 08</div>
+        </div>
+        <div class="toc-row">
+          <div class="toc-num">04</div>
+          <div class="toc-name">
+            <span class="toc-en">Beyond</span>
+            <span class="toc-zh">跨域 0 → 1</span>
+          </div>
+          <div class="toc-page">p. 09</div>
+        </div>
+        <div class="toc-row">
+          <div class="toc-num">05</div>
+          <div class="toc-name">
+            <span class="toc-en">Values</span>
+            <span class="toc-zh">工作信念</span>
+          </div>
+          <div class="toc-page">p. 10</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SLIDE 03 — ABOUT (merged with Experience) ===== -->
+    <section class="slide" data-slide="03">
+      <div class="top-bar">
+        <div class="top-bar-left">
+          <div class="label">關於我 / About</div>
+          <div class="top-rule"></div>
+        </div>
+        <div class="pagenum">03 / 11</div>
+      </div>
+
+      <div class="page-title">
+        <div class="en">About</div>
+        <div class="zh">關於我</div>
+      </div>
+
+      <div class="about-stack">
+
+        <!-- CURRENT · 現職 -->
+        <div class="about-section">
+          <div class="section-marker section-marker--dual">
+            <span class="lbl">
+              <span class="lbl-en">Current</span>
+              <span class="lbl-dot">·</span>
+              <span class="lbl-cn">現職</span>
+            </span>
+            <span class="line"></span>
+          </div>
+
+          <div class="current-card">
+            <div class="cc-header">
+              <div class="cc-co">TutorABC<span class="cjk">麥奇數位</span></div>
+              <div class="cc-period">2016.06 — 至今</div>
+            </div>
+            <div class="cc-phases">
+              <div class="cc-phase">
+                <div class="cp-period">2016 — 2018</div>
+                <div class="cp-role">PM, IC</div>
+                <div class="cp-team">獨立貢獻者</div>
+                <div class="cp-scope">行銷及名單管理系統</div>
+              </div>
+              <div class="cc-phase">
+                <div class="cp-period">2018 — 2021</div>
+                <div class="cp-role">Marketing Systems Mgr</div>
+                <div class="cp-team">管理 7 人</div>
+                <div class="cp-scope">官網與學習中心 · 站點整併與 RWD 統一</div>
+              </div>
+              <div class="cc-phase cc-phase--current">
+                <div class="cp-period">2022 — 至今</div>
+                <div class="cp-role">R&amp;D Product Head</div>
+                <div class="cp-team">管理 9 人 · 影響 60+ R&amp;D</div>
+                <div class="cp-scope">B2B 平台 · 直播電商 · AI 產品線</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EARLIER · 更早經歷 -->
+        <div class="about-section">
+          <div class="section-marker section-marker--dual">
+            <span class="lbl">
+              <span class="lbl-en">Earlier</span>
+              <span class="lbl-dot">·</span>
+              <span class="lbl-cn">更早經歷</span>
+            </span>
+            <span class="line"></span>
+          </div>
+
+          <div class="card-grid">
+            <div class="info-card">
+              <div class="ic-header">
+                <div class="ic-title">CyberPower Systems</div>
+                <div class="ic-meta">2014 — 2016</div>
+              </div>
+              <div class="ic-sub">資深專案專員</div>
+              <div class="ic-body">全球官網 / 夥伴平台 / 售後服務體系建構</div>
+            </div>
+            <div class="info-card">
+              <div class="ic-header">
+                <div class="ic-title">Walsin Lihwa<span class="cjk">華新麗華(南京)</span></div>
+                <div class="ic-meta">2010 — 2011</div>
+              </div>
+              <div class="ic-sub">特別專案專員</div>
+              <div class="ic-body">兩岸 B2B 商貿媒合 / 自有品牌進出口</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EDUCATION & LANGUAGE · 教育與語言 -->
+        <div class="about-section">
+          <div class="section-marker section-marker--dual">
+            <span class="lbl">
+              <span class="lbl-en">Education &amp; Language</span>
+              <span class="lbl-dot">·</span>
+              <span class="lbl-cn">教育與語言</span>
+            </span>
+            <span class="line"></span>
+          </div>
+
+          <div class="card-grid">
+            <!-- Education card -->
+            <div class="info-card">
+              <div class="ic-stack">
+                <div class="ic-stack-row">
+                  <div class="ic-header">
+                    <div class="ic-title">Lancaster University, UK</div>
+                    <div class="ic-meta">2013</div>
+                  </div>
+                  <div class="ic-body">MSc, E-business &amp; Innovation</div>
+                </div>
+                <div class="ic-divider"></div>
+                <div class="ic-stack-row">
+                  <div class="ic-header">
+                    <div class="ic-title">東吳大學</div>
+                    <div class="ic-meta">2010</div>
+                  </div>
+                  <div class="ic-body">國際經營與貿易學 學士</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Language card -->
+            <div class="info-card">
+              <div class="lang-list">
+                <div class="lang-item">
+                  <span class="lang-name">中文</span>
+                  <span class="lang-level">母語</span>
+                </div>
+                <div class="lang-item">
+                  <span class="lang-name">英文</span>
+                  <span class="lang-level">Professional</span>
+                </div>
+              </div>
+              <div class="ic-divider"></div>
+              <div class="lang-cert">IELTS 7.0</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== SLIDE 04 — SKILLS ===== -->
+    <section class="slide" data-slide="04">
+      <div class="top-bar">
+        <div class="top-bar-left">
+          <div class="label">工具熟練度 / Tools</div>
+          <div class="top-rule"></div>
+        </div>
+        <div class="pagenum">04 / 11</div>
+      </div>
+
+      <div class="skills-title">
+        <div class="en">My Toolstack</div>
+        <div class="zh">我的工具棧</div>
+      </div>
+
+      <div class="skills-cats">
+        <div class="skill-cat">
+          <div class="section-marker section-marker--dual"><span class="lbl"><span class="lbl-en">Product &amp; Collaboration</span><span class="lbl-dot">·</span><span class="lbl-cn">產品協作</span></span><span class="line"></span></div>
+          <div class="skill-row">
+            <div class="skill-row-head">
+              <span class="skill-name">Jira</span>
+              <span class="skill-desc">Admin 級</span>
+            </div>
+            <div class="skill-bar"><span class="fill" style="width:100%"></span></div>
+          </div>
+          <div class="skill-row">
+            <div class="skill-row-head">
+              <span class="skill-name">Figma</span>
+              <span class="skill-desc">UI with Design System</span>
+            </div>
+            <div class="skill-bar"><span class="fill" style="width:80%"></span></div>
+          </div>
+        </div>
+
+        <div class="skill-cat">
+          <div class="section-marker section-marker--dual"><span class="lbl"><span class="lbl-en">AI Tools</span><span class="lbl-dot">·</span><span class="lbl-cn">AI 工具</span></span><span class="line"></span></div>
+          <div class="skill-row">
+            <div class="skill-row-head">
+              <span class="skill-name">Claude Chat</span>
+              <span class="skill-desc">深度使用 + 工作流設計</span>
+            </div>
+            <div class="skill-bar"><span class="fill" style="width:100%"></span></div>
+          </div>
+          <div class="skill-row">
+            <div class="skill-row-head">
+              <span class="skill-name">Claude Cowork</span>
+              <span class="skill-desc">SDET 自動化工作流</span>
+            </div>
+            <div class="skill-bar"><span class="fill" style="width:80%"></span></div>
+          </div>
+          <div class="skill-row">
+            <div class="skill-row-head">
+              <span class="skill-name">Claude Code</span>
+              <span class="skill-desc">Figma MCP + Atomic</span>
+            </div>
+            <div class="skill-bar"><span class="fill" style="width:60%"></span></div>
+          </div>
+        </div>
+
+        <div class="skill-cat">
+          <div class="section-marker section-marker--dual"><span class="lbl"><span class="lbl-en">Data &amp; Integration</span><span class="lbl-dot">·</span><span class="lbl-cn">資料 &amp; 整合</span></span><span class="line"></span></div>
+          <div class="skill-row">
+            <div class="skill-row-head">
+              <span class="skill-name">MSSQL / MySQL</span>
+              <span class="skill-desc">Schema + AI 輔助查詢</span>
+            </div>
+            <div class="skill-bar"><span class="fill" style="width:60%"></span></div>
+          </div>
+          <div class="skill-row">
+            <div class="skill-row-head">
+              <span class="skill-name">API</span>
+              <span class="skill-desc">Read</span>
+            </div>
+            <div class="skill-bar"><span class="fill" style="width:40%"></span></div>
+          </div>
+        </div>
+
+        <div class="skill-cat">
+          <div class="section-marker section-marker--dual"><span class="lbl"><span class="lbl-en">MarTech &amp; Content</span><span class="lbl-dot">·</span><span class="lbl-cn">行銷與內容</span></span><span class="line"></span></div>
+          <div class="skill-row">
+            <div class="skill-row-head">
+              <span class="skill-name">Google Tag Manager</span>
+              <span class="skill-desc">FB / Yahoo / Google Ads 完整實作</span>
+            </div>
+            <div class="skill-bar"><span class="fill" style="width:100%"></span></div>
+          </div>
+          <div class="skill-row">
+            <div class="skill-row-head">
+              <span class="skill-name">Canva</span>
+              <span class="skill-desc">活動影片與簡報</span>
+            </div>
+            <div class="skill-bar"><span class="fill" style="width:80%"></span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SLIDE 06 — PROJECT 01 ===== -->
+    <section class="slide proj-1" data-slide="05">
+      <div class="top-bar">
+        <div class="top-bar-left">
+          <div class="label">專案 / Project 01</div>
+          <div class="top-rule"></div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:.6rem">
+          <div class="scope-scale">
+            <span class="lbl">影響範圍</span>
+            <span class="stage-item on">流程</span>
+            <span class="stage-arrow">›</span>
+            <span class="stage-item">市場</span>
+            <span class="stage-arrow">›</span>
+            <span class="stage-item">產品</span>
+            <span class="stage-arrow">›</span>
+            <span class="stage-item">組織</span>
+          </div>
+          <div class="pagenum">05 / 11</div>
+        </div>
+      </div>
+
+      <div class="proj-head-row">
+        <div class="proj-title">
+          <div class="zh">行銷技術平台化</div>
+          <div class="en">MarTech Platformization</div>
+        </div>
+        <div class="proj-period">2016 — 2021</div>
+      </div>
+
+      <div class="proj-section">
+        <div class="section-marker section-marker--dual accent-blue"><span class="lbl"><span class="lbl-en">Context</span><span class="lbl-dot">·</span><span class="lbl-cn">背景</span></span><span class="line"></span></div>
+        <p class="proj-context">行銷系統由各部門各自開發,資料破碎、重工嚴重、難以規模化。</p>
+      </div>
+
+      <div class="proj-section">
+        <div class="section-marker section-marker--dual accent-blue"><span class="lbl"><span class="lbl-en">Scope</span><span class="lbl-dot">·</span><span class="lbl-cn">範疇</span></span><span class="line"></span></div>
+        <div class="scope-cards-3">
+          <div class="scope-card">
+            <div class="sc-title">名單管理微服務</div>
+            <div class="sc-en">Lead Service</div>
+            <ul>
+              <li>統一 API 規範</li>
+              <li>多維分派(通路 / 客戶屬性)</li>
+              <li>取代各自寫表</li>
+            </ul>
+            <div class="sc-metric">整合 <span class="hl">10+ 系統</span></div>
+          </div>
+          <div class="scope-card">
+            <div class="sc-title">活動頁管理平台</div>
+            <div class="sc-en">Campaign CMS</div>
+            <ul>
+              <li>模組化 CMS</li>
+              <li>SEO 規範內建</li>
+              <li>常用模組複用</li>
+            </ul>
+            <div class="sc-metric">5d → 1d &nbsp; <span class="hl">−80%</span></div>
+          </div>
+          <div class="scope-card">
+            <div class="sc-title">GTM 標籤治理</div>
+            <div class="sc-en">Tag Governance</div>
+            <ul>
+              <li>第三方標籤治理</li>
+              <li>部署責任釐清</li>
+              <li>降低合規風險</li>
+            </ul>
+            <div class="sc-metric">10d → 3d &nbsp; <span class="hl">−70%</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="outcome">
+        <div class="section-marker section-marker--dual accent-blue"><span class="lbl"><span class="lbl-en">Outcome</span><span class="lbl-dot">·</span><span class="lbl-cn">成果</span></span><span class="line"></span></div>
+        <div class="outcome-head"><em>改變工作模式</em> — 從「等工程排期」變成「自助上線」</div>
+        <div class="outcome-metrics">
+          <span>開發時程 <span class="hl">−70~80%</span></span>
+          <span>治理 3 大系統</span>
+          <span>跨部門協作標準化</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SLIDE 07 — PROJECT 02 ===== -->
+    <section class="slide proj-2" data-slide="06">
+      <div class="top-bar">
+        <div class="top-bar-left">
+          <div class="label">專案 / Project 02</div>
+          <div class="top-rule"></div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:.6rem">
+          <div class="scope-scale">
+            <span class="lbl">影響範圍</span>
+            <span class="stage-item">流程</span>
+            <span class="stage-arrow">›</span>
+            <span class="stage-item on">市場</span>
+            <span class="stage-arrow">›</span>
+            <span class="stage-item">產品</span>
+            <span class="stage-arrow">›</span>
+            <span class="stage-item">組織</span>
+          </div>
+          <div class="pagenum">06 / 11</div>
+        </div>
+      </div>
+
+      <div class="proj-head-row">
+        <div class="proj-title">
+          <div class="zh">官網與學習中心全球化</div>
+          <div class="en">Site &amp; Learning Center Globalization</div>
+        </div>
+        <div class="proj-period">2018 — 2024</div>
+      </div>
+
+      <div class="proj-section">
+        <div class="section-marker section-marker--dual accent-green"><span class="lbl"><span class="lbl-en">Context</span><span class="lbl-dot">·</span><span class="lbl-cn">背景</span></span><span class="line"></span></div>
+        <p class="proj-context">6 年長期戰役 — 從整併奠基(2018-2021)走到全球化擴張(2022-2024)。</p>
+      </div>
+
+      <div class="proj-section">
+        <div class="section-marker section-marker--dual accent-green"><span class="lbl"><span class="lbl-en">Scope</span><span class="lbl-dot">·</span><span class="lbl-cn">範疇</span></span><span class="line"></span></div>
+        <div class="scope-cards-3">
+          <div class="scope-card">
+            <div class="sc-title">系統收斂</div>
+            <div class="sc-en">Consolidation</div>
+            <ul>
+              <li>站點架構整併</li>
+              <li>RWD 設計統一</li>
+              <li>維運責任收斂</li>
+            </ul>
+            <div class="sc-metric">8+ 站 → 2 站 &nbsp; <span class="hl-green">−75% 維運</span></div>
+          </div>
+          <div class="scope-card">
+            <div class="sc-title">學習中心改版</div>
+            <div class="sc-en">Learning Center</div>
+            <ul>
+              <li>使用者路徑重設</li>
+              <li>預約與選師流程</li>
+              <li>個人化學習計劃</li>
+            </ul>
+            <div class="sc-metric">核心轉換點優化</div>
+          </div>
+          <div class="scope-card">
+            <div class="sc-title">全球化擴展</div>
+            <div class="sc-en">Scale-up</div>
+            <ul>
+              <li>多語系架構</li>
+              <li>在地化內容</li>
+              <li>跨區運營支援</li>
+            </ul>
+            <div class="sc-metric"><span class="hl-green">7 語系 / 10+ 國</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="outcome">
+        <div class="section-marker section-marker--dual accent-green"><span class="lbl"><span class="lbl-en">Outcome</span><span class="lbl-dot">·</span><span class="lbl-cn">成果</span></span><span class="line"></span></div>
+        <div class="outcome-head"><em>加速商業擴張</em> — 用更少的系統,服務更多的市場</div>
+        <div class="outcome-metrics">
+          <span>維運成本 <span class="hl-green">−75%</span></span>
+          <span><span class="hl-green">7 語系 10+ 國</span>上線</span>
+          <span>學習體驗全面升級</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SLIDE 08 — PROJECT 03 ===== -->
+    <section class="slide proj-3" data-slide="07">
+      <div class="top-bar">
+        <div class="top-bar-left">
+          <div class="label">專案 / Project 03</div>
+          <div class="top-rule"></div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:.6rem">
+          <div class="scope-scale">
+            <span class="lbl">影響範圍</span>
+            <span class="stage-item">流程</span>
+            <span class="stage-arrow">›</span>
+            <span class="stage-item">市場</span>
+            <span class="stage-arrow">›</span>
+            <span class="stage-item on">產品</span>
+            <span class="stage-arrow">›</span>
+            <span class="stage-item">組織</span>
+          </div>
+          <div class="pagenum">07 / 11</div>
+        </div>
+      </div>
+
+      <div class="proj-head-row">
+        <div class="proj-title">
+          <div class="zh">B2B 企業學習平台</div>
+          <div class="en">B2B Enterprise Learning Platform</div>
+        </div>
+        <div class="proj-period">2024 — 至今</div>
+      </div>
+
+      <div class="proj-section">
+        <div class="section-marker section-marker--dual accent-pink"><span class="lbl"><span class="lbl-en">Context</span><span class="lbl-dot">·</span><span class="lbl-cn">背景</span></span><span class="line"></span></div>
+        <p class="proj-context">服務鴻海、台達電、Apple 等國際集團大客戶,從多家客戶的差異化需求中,提煉可規模化的產品模組。</p>
+      </div>
+
+      <div class="proj-section">
+        <div class="section-marker section-marker--dual accent-pink"><span class="lbl"><span class="lbl-en">Scope</span><span class="lbl-dot">·</span><span class="lbl-cn">範疇</span></span><span class="line"></span></div>
+        <div class="scope-cards-2">
+          <div class="scope-card">
+            <div class="sc-title">學員與課程管理</div>
+            <div class="sc-en">Learner &amp; Course</div>
+            <ul>
+              <li>組織與帳號管理</li>
+              <li>學習額度分配</li>
+              <li>排課與資源管理</li>
+            </ul>
+          </div>
+          <div class="scope-card">
+            <div class="sc-title">學習成效追蹤與評估</div>
+            <div class="sc-en">Performance &amp; Analytics</div>
+            <ul>
+              <li>能力評估與分級</li>
+              <li>進度追蹤儀表板</li>
+              <li>自動化報表推播</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="outcome">
+        <div class="section-marker section-marker--dual accent-pink"><span class="lbl"><span class="lbl-en">Outcome</span><span class="lbl-dot">·</span><span class="lbl-cn">成果</span></span><span class="line"></span></div>
+        <div class="outcome-head"><em>重塑開發模式</em> — 從「逐案客製」變成「規模化交付」</div>
+        <div class="outcome-metrics">
+          <span>模組複用率 <span class="hl">90%</span></span>
+          <span>加速新客導入</span>
+          <span>服務多家國際企業</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SLIDE 09 — PROJECT 04 ===== -->
+    <section class="slide proj-4" data-slide="08">
+      <div class="top-bar">
+        <div class="top-bar-left">
+          <div class="label">專案 / Project 04</div>
+          <div class="top-rule"></div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:.6rem">
+          <div class="scope-scale">
+            <span class="lbl">影響範圍</span>
+            <span class="stage-item">流程</span>
+            <span class="stage-arrow">›</span>
+            <span class="stage-item">市場</span>
+            <span class="stage-arrow">›</span>
+            <span class="stage-item">產品</span>
+            <span class="stage-arrow">›</span>
+            <span class="stage-item on">組織</span>
+          </div>
+          <div class="pagenum">08 / 11</div>
+        </div>
+      </div>
+
+      <div class="proj-head-row">
+        <div class="proj-title">
+          <div class="zh">AI 導入學習鏈路</div>
+          <div class="en">AI Across the Learner Journey</div>
+        </div>
+        <div class="proj-period">2025 — 至今</div>
+      </div>
+
+      <div class="proj-section">
+        <div class="section-marker section-marker--dual"><span class="lbl"><span class="lbl-en">Context</span><span class="lbl-dot">·</span><span class="lbl-cn">背景</span></span><span class="line"></span></div>
+        <p class="proj-context">傳統 EdTech 組織面對 LLM 浪潮,需從單點 PoC 走向跨旅程的策略級 AI 佈局。</p>
+      </div>
+
+      <div class="proj-section">
+        <div class="section-marker section-marker--dual"><span class="lbl"><span class="lbl-en">Scope</span><span class="lbl-dot">·</span><span class="lbl-cn">範疇</span></span><span class="line"></span></div>
+        <div class="journey-flow">
+          <span class="step">入學前</span><span class="arrow"></span>
+          <span class="step">上課中</span><span class="arrow"></span>
+          <span class="step">課後</span><span class="arrow"></span>
+          <span class="step">行銷 Funnel</span>
+        </div>
+        <div class="scope-cards-4">
+          <div class="scope-card">
+            <div class="sc-title">CAT 定級考試</div>
+            <div class="sc-en">Adaptive Test</div>
+            <ul>
+              <li>適性化測驗</li>
+              <li>個人化分級</li>
+              <li>演算法共建</li>
+            </ul>
+            <div class="sc-metric">PoC 中</div>
+          </div>
+          <div class="scope-card">
+            <div class="sc-title">學習報告</div>
+            <div class="sc-en">Learning Report</div>
+            <ul>
+              <li>學生視角:能力 + 引導</li>
+              <li>老師視角:同步 + 建議</li>
+            </ul>
+            <div class="sc-metric">PoC 中</div>
+          </div>
+          <div class="scope-card">
+            <div class="sc-title">ChatAI Speaking</div>
+            <div class="sc-en">AI Speaking Partner</div>
+            <ul>
+              <li>LLM 對話 API 整合</li>
+              <li>課後 24h AI 陪練</li>
+            </ul>
+            <div class="sc-metric"><span class="hl-green">1mo 上線</span></div>
+          </div>
+          <div class="scope-card">
+            <div class="sc-title">AI Blog Editor</div>
+            <div class="sc-en">AI Content Engine</div>
+            <ul>
+              <li>自主提案 · 主導交付</li>
+              <li>Otterly Leader 象限</li>
+            </ul>
+            <div class="sc-metric"><span class="hl">56%</span> / <span class="hl">7×</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="outcome">
+        <div class="section-marker section-marker--dual"><span class="lbl"><span class="lbl-en">Outcome</span><span class="lbl-dot">·</span><span class="lbl-cn">成果</span></span><span class="line"></span></div>
+        <div class="outcome-head"><em>增強組織能力</em> — 用專案累積 AI 開發實力,讓「真人 + AI」成為新的學習標準</div>
+        <div class="outcome-metrics">
+          <span>2 項已上線 + 2 項 PoC 中</span>
+          <span>Otterly Leader 象限</span>
+          <span>產能 <span class="hl">7×</span></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SLIDE 09 — PROJECT 05 · LIVE COMMERCE (BEYOND JOURNEY) ===== -->
+    <section class="slide proj-5" data-slide="09">
+      <div class="top-bar">
+        <div class="top-bar-left">
+          <div class="label">專案 / Project 05</div>
+          <div class="top-rule"></div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:.6rem">
+          <div class="beyond-marker">
+            <span class="lbl">Beyond Journey</span>
+            <span class="tag">跨域 0 → 1</span>
+          </div>
+          <div class="pagenum">09 / 11</div>
+        </div>
+      </div>
+
+      <div class="proj-head-row">
+        <div class="proj-title">
+          <div class="zh">TutorABC Shop 直播電商</div>
+          <div class="en">Live Commerce · 0 → 1 MVP</div>
+        </div>
+        <div class="proj-period">2023 · 6 個月</div>
+      </div>
+
+      <div class="proj-section">
+        <div class="section-marker section-marker--dual"><span class="lbl"><span class="lbl-en">Context</span><span class="lbl-dot">·</span><span class="lbl-cn">背景</span></span><span class="line"></span></div>
+        <p class="proj-context">在 SaaS / EdTech 主業之外,集團跨入直播電商新業態,需以 6 個月時程完成 0 → 1 商業驗證。</p>
+      </div>
+
+      <div class="proj-section">
+        <div class="section-marker section-marker--dual"><span class="lbl"><span class="lbl-en">Scope</span><span class="lbl-dot">·</span><span class="lbl-cn">範疇</span></span><span class="line"></span></div>
+        <div class="cross-stack">
+          <div class="stack-cell">
+            <div class="stack-label">Layer 01 · 直播</div>
+            <div class="stack-name">直播間</div>
+            <div class="stack-desc">直播串流整合 / 即時互動 / 觀眾管理</div>
+          </div>
+          <div class="stack-cell">
+            <div class="stack-label">Layer 02 · 前台</div>
+            <div class="stack-name">商城前台</div>
+            <div class="stack-desc">商品瀏覽 / 購物車 / 會員體驗</div>
+          </div>
+          <div class="stack-cell">
+            <div class="stack-label">Layer 03 · 商品</div>
+            <div class="stack-name">商品與訂單</div>
+            <div class="stack-desc">商品上架 / 庫存管理 / 訂單建立</div>
+          </div>
+          <div class="stack-cell">
+            <div class="stack-label">Layer 04 · 金流</div>
+            <div class="stack-name">支付與對帳</div>
+            <div class="stack-desc">第三方金流串接 / 交易處理 / 退款流程</div>
+          </div>
+        </div>
+        <div class="cross-metrics">
+          <div class="cross-metric">
+            <div class="cm-value">6 mo</div>
+            <div class="cm-label">從零到 MVP 上線</div>
+          </div>
+          <div class="cross-metric">
+            <div class="cm-value">4 系統</div>
+            <div class="cm-label">直播 / 前台 / 商品 / 金流</div>
+          </div>
+          <div class="cross-metric">
+            <div class="cm-value">1 PM</div>
+            <div class="cm-label">主責 PM 跨域操盤</div>
+          </div>
+          <div class="cross-metric">
+            <div class="cm-value">New</div>
+            <div class="cm-label">集團首次跨入電商業態</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="outcome">
+        <div class="section-marker section-marker--dual"><span class="lbl"><span class="lbl-en">Outcome</span><span class="lbl-dot">·</span><span class="lbl-cn">成果</span></span><span class="line"></span></div>
+        <div class="outcome-head"><em>跨域驗證</em> — 從 SaaS 到電商金流的能力遷移,打通「直播 → 下單 → 支付 → 對帳」交易全鏈路</div>
+        <div class="outcome-metrics">
+          <span>跨 4 系統整合</span>
+          <span>6 個月 0 → 1 MVP</span>
+          <span>金流系統實戰經驗</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SLIDE 10 — VALUES ===== -->
+    <section class="slide" data-slide="10">
+      <div class="top-bar">
+        <div class="top-bar-left">
+          <div class="label">工作信念 / Values</div>
+          <div class="top-rule"></div>
+        </div>
+        <div class="pagenum">10 / 11</div>
+      </div>
+
+      <div class="values-title">
+        <div class="en">Beliefs</div>
+        <div class="zh">4 個我相信的 PM 之道</div>
+      </div>
+
+      <div class="values-grid">
+        <div class="value-card v1">
+          <div class="v-num">01 — Curious</div>
+          <div class="v-body">
+            <div class="v-en">Stay Curious</div>
+            <div class="v-zh">保持好奇</div>
+            <div class="v-desc">謹慎觀察、發現機會,勇於嘗試新科技。</div>
+          </div>
+        </div>
+        <div class="value-card v2">
+          <div class="v-num">02 — Grounded</div>
+          <div class="v-body">
+            <div class="v-en">Stay Grounded</div>
+            <div class="v-zh">務實落地</div>
+            <div class="v-desc">不打誑語、凡事有依據,動手做,不只說。</div>
+          </div>
+        </div>
+        <div class="value-card v3">
+          <div class="v-num">03 — Aligned</div>
+          <div class="v-body">
+            <div class="v-en">Stay Aligned</div>
+            <div class="v-zh">緊密溝通</div>
+            <div class="v-desc">主動同步,讓 stakeholders 始終 on the same page。</div>
+          </div>
+        </div>
+        <div class="value-card v4">
+          <div class="v-num">04 — Adaptive</div>
+          <div class="v-body">
+            <div class="v-en">Stay Adaptive</div>
+            <div class="v-zh">頭腦靈活</div>
+            <div class="v-desc">沒有最佳解,只有最適解;鎖定目標,選最合用的方案。</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SLIDE 11 — THANK YOU ===== -->
+    <section class="slide" data-slide="11">
+      <div class="top-bar">
+        <div class="top-bar-left">
+          <div class="label">Closing</div>
+          <div class="top-rule"></div>
+        </div>
+        <div class="pagenum">11 / 11</div>
+      </div>
+
+      <div class="thanks-block">
+        <div class="thanks-en">Thank you</div>
+        <div class="thanks-zh">謝謝聆聽 · 歡迎提問</div>
+      </div>
+
+      <div class="thanks-footer">
+        <div class="thanks-name-block">
+          <div class="thanks-name">Tai-Ting Huang · Febrey<span class="cjk">黃岱婷</span></div>
+          <div class="thanks-contact">
+            <span>febreyhuang@gmail.com</span>
+            <span>Taipei, Taiwan</span>
+            <span>in/febrey-huang</span>
+          </div>
+        </div>
+        <div class="brand-mark">
+          <span class="b"></span><span class="g"></span><span class="p"></span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<nav class="controls" id="controls">
+  <button id="prev" aria-label="Previous slide">←</button>
+  <span><span class="counter" id="counter">01</span> <span class="total">/ 11</span></span>
+  <button id="next" aria-label="Next slide">→</button>
+</nav>
+
+<script>
+  /* ===== Password Gate ===== */
+  const PASSWORD_HASH = 'ffc64d96f3f31d2d0c535376556b3ce1465244ae458e4a90a9a1f731434b3dd2';
+  const GATE_KEY = 'portfolio_unlocked_v1';
+
+  async function sha256(text){
+    const buf = new TextEncoder().encode(text);
+    const hash = await crypto.subtle.digest('SHA-256', buf);
+    return Array.from(new Uint8Array(hash))
+      .map(b => b.toString(16).padStart(2,'0'))
+      .join('');
+  }
+
+  function unlock(){
+    document.body.classList.remove('deck-locked');
+    document.getElementById('gate').classList.add('hidden');
+  }
+
+  // Check if already unlocked in this session
+  if(sessionStorage.getItem(GATE_KEY) === '1'){
+    unlock();
+  }
+
+  document.getElementById('gate-form').addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const input = document.getElementById('gate-input');
+    const errorEl = document.getElementById('gate-error');
+    const hash = await sha256(input.value);
+    if(hash === PASSWORD_HASH){
+      sessionStorage.setItem(GATE_KEY, '1');
+      errorEl.textContent = '';
+      input.classList.remove('error');
+      unlock();
+    } else {
+      errorEl.textContent = '密碼錯誤,請再試一次';
+      input.classList.add('error');
+      input.value = '';
+      input.focus();
+    }
+  });
+
+  /* ===== Deck Navigation ===== */
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  const counter = document.getElementById('counter');
+  const progress = document.getElementById('progress');
+  let current = 0;
+
+  function go(idx){
+    if(idx<0) idx = 0;
+    if(idx>=total) idx = total - 1;
+    slides[current].classList.remove('active');
+    slides[idx].classList.add('active');
+    current = idx;
+    counter.textContent = String(idx+1).padStart(2,'0');
+    progress.style.width = ((idx+1) / total * 100) + '%';
+  }
+
+  document.getElementById('prev').addEventListener('click', ()=> go(current-1));
+  document.getElementById('next').addEventListener('click', ()=> go(current+1));
+
+  document.addEventListener('keydown', (e)=>{
+    if(e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' '){ e.preventDefault(); go(current+1); }
+    else if(e.key === 'ArrowLeft' || e.key === 'PageUp'){ e.preventDefault(); go(current-1); }
+    else if(e.key === 'Home'){ go(0); }
+    else if(e.key === 'End'){ go(total-1); }
+    else if(/^[1-9]$/.test(e.key)){ go(parseInt(e.key,10)-1); }
+    else if(e.key === '0'){ go(9); }    // → page 10 (Values)
+    else if(e.key === '-' || e.key === '_'){ go(10); }  // → page 11 (Thanks)
+  });
+
+  const stage = document.getElementById('stage');
+  stage.addEventListener('click', (e)=>{
+    const rect = stage.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    if (e.target.closest('button, a')) return;
+    if (x < rect.width * 0.18) go(current - 1);
+    else if (x > rect.width * 0.82) go(current + 1);
+  });
+
+  let touchX = 0;
+  stage.addEventListener('touchstart', e=>{ touchX = e.changedTouches[0].clientX; }, {passive:true});
+  stage.addEventListener('touchend', e=>{
+    const dx = e.changedTouches[0].clientX - touchX;
+    if(Math.abs(dx) > 50){ go(current + (dx<0?1:-1)); }
+  }, {passive:true});
+</script>
+
+</body>
+</html>
